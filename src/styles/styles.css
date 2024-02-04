@@ -123,7 +123,7 @@ button:hover {
   color: var(--accent-color-faded);
 }
 
-.todo-item {
+.list-item {
   display: flex;
   flex-direction: column;
 
@@ -138,7 +138,7 @@ button:hover {
   border-radius: 10px;
 }
 
-.todo-item div:first-of-type:not(.item-details) {
+.list-item div:first-of-type:not(.item-details) {
   display: flex;
   flex-direction: row;
 
@@ -146,13 +146,13 @@ button:hover {
   height: 100%;
 }
 
-.todo-item:hover,
+.list-item:hover,
 .selected {
   background-color: var(--accent-color-faded);
   border: thin solid var(--accent-color);
 }
 
-.todo-item div:first-of-type input {
+.list-item div:first-of-type input {
   background-color: var(--overlay-color);
 }
 

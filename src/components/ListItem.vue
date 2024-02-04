@@ -3,7 +3,7 @@ import TankDetails from './TankDetails.vue';
 </script>
 
 <template>
-  <div v-if="editActive" :id="`item-${index + 1}`" class="todo-item selected">
+  <div v-if="editActive" :id="`item-${index + 1}`" class="list-item selected">
     <div>
       <input
         type="text"
@@ -14,7 +14,7 @@ import TankDetails from './TankDetails.vue';
       <button type="button" class="edit" @click="toggleEdit">Cancel</button>
     </div>
   </div>
-  <div v-else-if="detailsActive" :id="`item-${index + 1}`" class="todo-item selected">
+  <div v-else-if="detailsActive" :id="`item-${index + 1}`" class="list-item selected">
     <div class="item-details">
       <TankDetails
         :key="`${item.id}-details`"
@@ -27,7 +27,7 @@ import TankDetails from './TankDetails.vue';
       <button type="button" class="details" @click="toggleDetails">Close</button>
     </div>
   </div>
-  <div v-else :id="`item-${index + 1}`" class="todo-item" :class="{ selected: item.selected }">
+  <div v-else :id="`item-${index + 1}`" class="list-item" :class="{ selected: item.selected }">
     <div>
       <input
         type="checkbox"
@@ -81,7 +81,7 @@ p {
   margin-left: 1%;
 }
 
-.todo-item .details {
+.list-item .details {
   margin-left: auto;
 }
 
