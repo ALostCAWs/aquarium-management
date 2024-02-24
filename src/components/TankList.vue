@@ -3,7 +3,7 @@ import ListItem from './ListItem.vue'
 </script>
 
 <template>
-  <div class="list-container">
+  <div class="list-item-container">
     <ListItem
       v-for="(item, index) in list"
       :key="index"
@@ -28,8 +28,8 @@ export default {
 </script>
 
 <style>
-.list-container {
-  width: 100%;
-  height: 100%;
+.list-item-container {
+  /* width: 100%; */
+  /* height: 100%; */
 }
 </style>

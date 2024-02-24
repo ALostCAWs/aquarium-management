@@ -71,17 +71,34 @@ input, button {
   border: none;
 }
 
-html,
-body {
+html {
   overflow-x: hidden;
+  overflow-y: scroll;
   max-width: 100%;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--accent-color-faded);
+}
+
+::-moz-scrollbar-button:decrement,
+::-moz-scrollbar-button:increment,
+::-webkit-scrollbar-button:decrement,
+::-webkit-scrollbar-button:increment {
+  display: none;
 }
 
 body {
-  padding-left: calc(100vw - 100%);
+  /* padding-left: calc(100vw - 100%); */
   background-color: var(--main-color);
   font-family: var(--main-font-fallback);
   color: var(--font-color);
+}
+
+@supports (scrollbar-gutter: stable) {
+  html {
+    /* overflow-y: auto; */
+    /* scrollbar-gutter: stable; */
+  }
 }
 
 #app {
@@ -100,7 +117,7 @@ h1.hiddenHeading {
   clip: rect(1px, 1px, 1px, 1px);
   -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
   clip-path: inset(0px 0px 99.9% 99.9%);
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 1px;
   width: 1px;
   padding: 0;
