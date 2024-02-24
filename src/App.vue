@@ -2,6 +2,7 @@
 import AddItemModal from './components/AddItemModal.vue'
 import ToggleModalButton from './components/ToggleModalButton.vue'
 import DeleteItemButton from './components/DeleteItemButton.vue'
+import Sidebar from './components/Sidebar.vue'
 import TankList from './components/TankList.vue'
 </script>
 
@@ -16,9 +17,9 @@ import TankList from './components/TankList.vue'
     <div class="page-wrapper" :inert="modalActive">
       <h1 class="hiddenHeading">Aquarium Management - Tank List</h1>
       <aside class="sidebar-left">
-        <section>
-          <h2>Plants</h2>
-        </section>
+        <Sidebar
+          :title="'Plants'"
+        />
       </aside>
       <section class="list-container">
         <h2>Tank List</h2>
@@ -38,9 +39,9 @@ import TankList from './components/TankList.vue'
         />
       </section>
       <aside class="sidebar-right">
-        <section>
-          <h2>Livestock</h2>
-        </section>
+        <Sidebar
+          :title="'Livestock'"
+        />
       </aside>
     </div>
   </div>
@@ -53,6 +54,7 @@ export default {
     AddItemModal,
     ToggleModalButton,
     DeleteItemButton,
+    Sidebar,
     TankList
   },
   methods: {
@@ -114,15 +116,11 @@ export default {
 <style>
 aside {
   position: fixed;
-  padding: 0 1em;
+  /* padding: 0 1em; */
   width: 15%;
   height: 100vh;
   bottom: 0;
   background-color: var(--accent-color-faded);
-}
-
-aside > section > h2:first-child {
-  padding-top: 1.1em;
 }
 
 .sidebar-left {

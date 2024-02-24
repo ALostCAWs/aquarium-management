@@ -80,25 +80,10 @@ html {
   scrollbar-color: var(--accent-color) var(--accent-color-faded);
 }
 
-::-moz-scrollbar-button:decrement,
-::-moz-scrollbar-button:increment,
-::-webkit-scrollbar-button:decrement,
-::-webkit-scrollbar-button:increment {
-  display: none;
-}
-
 body {
-  /* padding-left: calc(100vw - 100%); */
   background-color: var(--main-color);
   font-family: var(--main-font-fallback);
   color: var(--font-color);
-}
-
-@supports (scrollbar-gutter: stable) {
-  html {
-    /* overflow-y: auto; */
-    /* scrollbar-gutter: stable; */
-  }
 }
 
 #app {
@@ -114,18 +99,27 @@ body {
 
 h1.hiddenHeading {
   position: absolute;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
   clip-path: inset(0px 0px 99.9% 99.9%);
-  /* overflow: hidden; */
-  height: 1px;
-  width: 1px;
-  padding: 0;
-  border: 0;
 }
 
 h2 {
   padding-bottom: 1em;
+}
+
+aside > section h3 {
+  font-size: var(--h6);
+}
+
+aside > section > div {
+  padding-left: 1.50em;
+  padding-bottom: 0.35em;
+  border-bottom: thin solid var(--accent-color);
 }
 
 input {
@@ -136,24 +130,25 @@ input {
 }
 
 button {
+  background-color: var(--accent-color-faded);
+  border: thin solid var(--accent-color);
+}
+
+button:not(aside button) {
   width: 5em;
   height: 1.5em;
 
-  background-color: var(--accent-color-faded);
-  border: thin solid var(--accent-color);
   border-radius: 5px;
-
   color: var(--accent-color);
 }
 
 button:hover {
-  width: 5em;
-  height: 1.5em;
-
   background-color: var(--accent-color);
   border: thin solid var(--light-color);
-  border-radius: 5px;
+}
 
+button:hover,
+button:hover > h3 {
   color: var(--accent-color-faded);
 }
 
