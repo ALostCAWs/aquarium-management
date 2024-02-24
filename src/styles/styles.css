@@ -78,6 +78,7 @@ body {
 }
 
 body {
+  padding-left: calc(100vw - 100%);
   background-color: var(--main-color);
   font-family: var(--main-font-fallback);
   color: var(--font-color);
@@ -92,6 +93,22 @@ body {
   body {
     font-family: var(--main-font);
   }
+}
+
+h1.hiddenHeading {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+  clip-path: inset(0px 0px 99.9% 99.9%);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
+}
+
+h2 {
+  padding-bottom: 1em;
 }
 
 input {

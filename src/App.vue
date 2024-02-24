@@ -13,7 +13,9 @@ import TankList from './components/TankList.vue'
       @onToggle="toggleModal"
       />
     </div>
-    <div :inert="modalActive">
+    <section :inert="modalActive">
+      <h1 class="hiddenHeading">Aquarium Management - Tank List</h1>
+      <h2>Tank List</h2>
       <div class="todo-btn">
         <ToggleModalButton
           @onToggle="toggleModal"
@@ -23,12 +25,12 @@ import TankList from './components/TankList.vue'
           v-show="itemSelected"
         />
       </div>
-    <TankList
-      :list="tanks"
-      @onSelect="toggleSelectItem"
-      @onUpdate="updateItem"
-    />
-    </div>
+      <TankList
+        :list="tanks"
+        @onSelect="toggleSelectItem"
+        @onUpdate="updateItem"
+      />
+    </section>
   </div>
 </template>
 
