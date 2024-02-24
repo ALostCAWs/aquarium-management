@@ -15,27 +15,26 @@ import TankDetails from './TankDetails.vue';
     </div>
   </div>
   <div v-else-if="detailsActive" :id="`item-${index + 1}`" class="list-item selected">
+    <div>
+      <p v-if="item.name">{{ item.name }}</p>
+      <p v-else>{{ item.id }}</p>
+      <button type="button" class="details" @click="toggleDetails">Close</button>
+    </div>
     <div class="item-details">
       <TankDetails
         :key="`${item.id}-details`"
         :item="item"
-        :index="index"
       />
     </div>
     <div class="details-controls">
       <button type="button" class="edit" @click="toggleEdit">Edit</button>
-      <button type="button" class="details" @click="toggleDetails">Close</button>
+      <button type="button" class="details" @click="">Delete</button>
     </div>
   </div>
   <div v-else :id="`item-${index + 1}`" class="list-item" :class="{ selected: item.selected }">
     <div>
-      <input
-        type="checkbox"
-        :id="`select-item-${index + 1}`"
-        v-model="item.selected"
-        @click="select"
-      >
-      <p>{{ item.id }}</p>
+      <p v-if="item.name">{{ item.name }}</p>
+      <p v-else>{{ item.id }}</p>
       <button type="button" class="details" @click="toggleDetails">Details</button>
     </div>
   </div>

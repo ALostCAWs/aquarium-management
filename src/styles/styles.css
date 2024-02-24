@@ -138,7 +138,7 @@ button:hover {
   border-radius: 10px;
 }
 
-.list-item div:first-of-type:not(.item-details) {
+.list-item div:first-of-type:not(.item-details):not(.item) {
   display: flex;
   flex-direction: row;
 
@@ -158,6 +158,20 @@ button:hover {
 
 .item-details {
   margin-top: 0.5em;
+}
+
+.item div {
+  max-width: 100%;
+  margin-top: .4em;
+}
+
+.item div:not(.list) {
+  display: flex;
+  flex-direction: row;
+}
+
+.item div:not(.list) p:last-of-type {
+  margin-left: auto;
 }
 
 /* Modal */

@@ -5,7 +5,7 @@ import ToggleModalButton from './ToggleModalButton.vue'
 
 <template>
   <div class="modal-mask" @click.self="toggle">
-    <div class="add-modal modal">
+    <div role="dialog" aria-modal="true" class="add-modal modal">
       <div class="modal-inputs">
         <LabelTextbox
           :label="`Item:`"

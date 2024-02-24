@@ -13,20 +13,22 @@ import TankList from './components/TankList.vue'
       @onToggle="toggleModal"
       />
     </div>
-    <div class="todo-btn">
-      <ToggleModalButton
-        @onToggle="toggleModal"
-      />
-      <DeleteItemButton
-        :deleteSelectedItems="deleteSelectedItems"
-        v-show="itemSelected"
-      />
-    </div>
+    <div :inert="modalActive">
+      <div class="todo-btn">
+        <ToggleModalButton
+          @onToggle="toggleModal"
+        />
+        <DeleteItemButton
+          :deleteSelectedItems="deleteSelectedItems"
+          v-show="itemSelected"
+        />
+      </div>
     <TankList
       :list="tanks"
       @onSelect="toggleSelectItem"
       @onUpdate="updateItem"
     />
+    </div>
   </div>
 </template>
 
