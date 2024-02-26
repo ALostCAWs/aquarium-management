@@ -117,8 +117,10 @@ aside > section h3 {
 }
 
 aside > section > div {
-  padding-left: 1.50em;
-  padding-bottom: 0.35em;
+  border-top: thin solid var(--accent-color);
+}
+
+aside > section > div:last-of-type {
   border-bottom: thin solid var(--accent-color);
 }
 
@@ -131,12 +133,12 @@ input {
 
 button {
   background-color: var(--accent-color-faded);
-  border: thin solid var(--accent-color);
 }
 
 button:not(aside button) {
   width: 5em;
   height: 1.5em;
+  border: thin solid var(--accent-color);
 
   border-radius: 5px;
   color: var(--accent-color);
@@ -144,11 +146,15 @@ button:not(aside button) {
 
 button:hover {
   background-color: var(--accent-color);
+}
+
+button:not(aside button):hover {
   border: thin solid var(--light-color);
 }
 
 button:hover,
-button:hover > h3 {
+button:hover > h3,
+button:hover > p {
   color: var(--accent-color-faded);
 }
 

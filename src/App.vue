@@ -18,7 +18,7 @@ import TankList from './components/TankList.vue'
       <h1 class="hiddenHeading">Aquarium Management - Tank List</h1>
       <aside class="sidebar-left">
         <Sidebar
-          :title="'Plants'"
+          :group="'plants'"
         />
       </aside>
       <section class="list-container">
@@ -40,7 +40,7 @@ import TankList from './components/TankList.vue'
       </section>
       <aside class="sidebar-right">
         <Sidebar
-          :title="'Livestock'"
+          :group="'livestock'"
         />
       </aside>
     </div>
