@@ -60,3 +60,46 @@ export default {
   margin: 20px auto;
 }
 </style>
+
+<style>
+.modal-mask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  z-index: 8000;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--overlay-color);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  z-index: 9000;
+
+  width: 50%;
+  height: 50%;
+
+  margin-right: auto;
+  margin-left: auto;
+
+  background-color: var(--shade-color);
+  border-radius: 10px;
+}
+
+.modal-inputs {
+  width: 100%;
+  height: 70%;
+}
+
+.modal-inputs input {
+  background-color: var(--accent-color-faded);
+}
+</style>

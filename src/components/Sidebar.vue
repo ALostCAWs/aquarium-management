@@ -35,7 +35,6 @@ export default {
 
 <style scoped>
 h2:first-child {
-  padding: 1.1em 1em;
-  /* padding-top: 1.1em; */
+  padding: 1.1em 1em 0.50em;
 }
 </style>

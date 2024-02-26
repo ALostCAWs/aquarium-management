@@ -60,21 +60,32 @@ export default {
 </script>
 
 <style scoped>
-aside button {
-  width: 100%;
-  padding: 0.50em 0;
-  padding-left: 0.75em;
-  border-left: none;
-  border-right: none;
-  text-align: left;
-}
-
-aside button.expanded {
-  border-bottom: none;
+h3 {
+  font-size: var(--h6);
 }
 
 button > p {
-  padding-left: 1.50em;
+  padding-left: 1em;
   line-height: 1em;
+}
+
+button {
+  width: 100%;
+  padding: 0.50em 0;
+  padding-left: 0.75em;
+  text-align: left;
+}
+
+button:hover > h3,
+button:hover > p {
+  color: var(--accent-color-faded);
+}
+
+aside > section > div {
+  border-top: thin solid var(--accent-color);
+}
+
+aside > section > div:last-of-type {
+  border-bottom: thin solid var(--accent-color);
 }
 </style>

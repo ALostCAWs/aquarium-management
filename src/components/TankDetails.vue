@@ -74,9 +74,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .item {
   display: flex;
   flex-direction: column;
+}
+
+.item div {
+  max-width: 100%;
+  margin-top: .4em;
+}
+
+.item div:not(.list) {
+  display: flex;
+  flex-direction: row;
+}
+
+.item div:not(.list) p:last-of-type {
+  margin-left: auto;
 }
 </style>

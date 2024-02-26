@@ -79,6 +79,41 @@ p {
   margin: auto 0;
   margin-left: 1%;
 }
+</style>
+
+<style>
+.list-item {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 5px 0;
+  padding: 15px;
+
+  background-color: var(--main-color);
+  border: thin solid var(--light-color);
+  border-radius: 10px;
+}
+
+.list-item div:first-of-type:not(.item-details):not(.item) {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 100%;
+}
+
+.list-item:hover,
+.selected {
+  background-color: var(--accent-color-faded);
+  border: thin solid var(--accent-color);
+}
+
+.list-item div:first-of-type input {
+  background-color: var(--overlay-color);
+}
 
 .list-item .details {
   margin-left: auto;
