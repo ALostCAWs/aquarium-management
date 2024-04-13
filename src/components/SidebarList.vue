@@ -1,5 +1,6 @@
 <script setup>
-import toTitleCase from '../functions/stringFunctions.js'
+import { toTitleCase } from '../functions/convertData.js'
+import { sortSpeciesArray } from '../functions/sortData.js';
 </script>
 
 <template>
@@ -7,7 +8,7 @@ import toTitleCase from '../functions/stringFunctions.js'
     <button :class="{expanded: expandActive}" :aria-expanded="expandActive" :aria-controls="`${group}-${genus}-species`" @click="toggleDetails">
       <h3>{{ toTitleCase(genus) }}</h3>
     </button>
-    <div :id="`${group}-${genus}-species`" v-show="expandActive">
+    <div :id="`${group}-${genus}-species`" class="sidebar-list" v-show="expandActive">
       <div v-if="failedGetSpecies">
         <button>
           <p>No Species Found</p>
@@ -39,12 +40,11 @@ export default {
     async getAllPlantSpeciesInGenus() {
       try {
         const response = await fetch(`http://localhost:3000/${this.group}/${this.genus}/species`);
-        const allSpecies = await response.json();
-        console.log(response);
-        this.species = allSpecies;
+        this.species = await response.json();
+        this.species.sort(sortSpeciesArray);
       } catch (e) {
+        console.error(`failed to get species in genus ${this.genus}`);
         this.failedGetSpecies = true;
-        console.error(e);
       }
     },
   },
@@ -66,7 +66,7 @@ h3 {
 
 button > p {
   padding-left: 1em;
-  line-height: 1em;
+  line-height: 1.25em;
 }
 
 button {
@@ -81,11 +81,17 @@ button:hover > p {
   color: var(--accent-color-faded);
 }
 
-aside > section > div {
+aside > section > div > div {
   border-top: thin solid var(--accent-color);
 }
 
-aside > section > div:last-of-type {
+aside > section > div > div:last-of-type {
   border-bottom: thin solid var(--accent-color);
+}
+
+aside .sidebar-list {
+  overflow: auto;
+  max-height: max-content;
+  height: fit-content;
 }
 </style>

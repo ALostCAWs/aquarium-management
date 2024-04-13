@@ -1,19 +1,23 @@
 <script setup>
 import SidebarList from './SidebarList.vue'
-import toTitleCase from '../functions/stringFunctions.js'
+import { toTitleCase } from '../functions/convertData'
+import { sortGeneraArray } from '../functions/sortData.js'
 </script>
 
 <template>
   <section>
     <h2>{{ capitalizedGroup }}</h2>
-    <SidebarList
-      :group="group"
-      :genus="'vallisneria'"
-    />
-    <SidebarList
-      :group="group"
-      :genus="'vallisneria'"
-    />
+    <div v-if="failedGetGenera">
+      <button>
+        <p>No genera found</p>
+      </button>
+    </div>
+    <div v-else>
+      <SidebarList v-for="(item, index) in genera"
+        :group="group"
+        :genus="item.genus"
+      />
+    </div>
   </section>
 </template>
 
@@ -22,13 +26,28 @@ export default {
   props: {
     group: { required: true }
   },
+  methods: {
+    async getGenera() {
+      try {
+        const response = await fetch(`http://localhost:3000/${this.group}/genera`);
+        this.genera = await response.json();
+        await this.genera.sort(sortGeneraArray);
+      } catch (e) {
+        console.error(`failed to get ${this.group} genera: ${e}`);
+        this.failedGetGenera = true;
+      }
+    }
+  },
   data() {
     return {
-      capitalizedGroup: this.group
+      capitalizedGroup: this.group,
+      genera: [],
+      failedGetGenera: false
     };
   },
-  created() {
+  async created() {
     this.capitalizedGroup = toTitleCase(this.capitalizedGroup);
+    await this.getGenera();
   }
 }
 </script>
