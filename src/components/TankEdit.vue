@@ -6,115 +6,105 @@ import { timestampToDate } from '../functions/convertData'
   <div class="item">
     <div>
       <p>Volume:</p>
-      <p>{{ tank.volume }} {{ tank.volume_unit }}</p>
+      <input v-model="tank.volume"/>
+      <input v-model="tank.volume_unit"/>
     </div>
     <div>
       <p>Cycled:</p>
-      <p>{{ tank.is_cycled }}</p>
+      <input v-model="tank.is_cycled"/>
     </div>
     <div>
       <p>Filtration:</p>
-      <p>{{ tank.filtration }}</p>
+      <input v-model="tank.filtration"/>
     </div>
     <div>
       <p>Substrate:</p>
-      <p>{{ tank.substrate }}</p>
+      <input v-model="tank.substrate"/>
     </div>
     <div>
       <p>Temperature Setting:</p>
-      <p>{{ tank.temperature_setting }} {{ tank.temperature_unit }}</p>
+      <input v-model="tank.temperature_setting"/>
+      <input v-model="tank.temperature_unit"/>
     </div>
     <div class="list">
       <p>Light Settings:</p>
       <div>
         <p>Name:</p>
-        <p>{{ tank.light_settings.name }}</p>
+        <input v-model="tank.light_settings.name"/>
       </div>
       <div>
         <p>Strength:</p>
-        <p>{{ tank.light_settings.strength }}</p>
+        <input v-model="tank.light_settings.strength"/>
       </div>
       <div>
         <p>Percentage:</p>
-        <p>{{ tank.light_settings.percentage }}</p>
+        <input v-model="tank.light_settings.percentage"/>
       </div>
       <div>
         <p>Hours on:</p>
-        <p>{{ tank.light_settings.hours_on }}</p>
+        <input v-model="tank.light_settings.hours_on"/>
       </div>
     </div>
     <div class="list">
       <p>Parameters:</p>
       <div v-for="(parameter) in tank.parameters">
-        <p>{{ parameter.parameter }} {{ parameter.result }}{{ parameter.result_unit }}</p>
-        <p>{{ timestampToDate(parameter.timestamp) }}</p>
+        <p>{{ parameter.parameter }}</p>
+        <input v-model="parameter.result"/>
+        <input v-model="parameter.result_unit"/>
       </div>
     </div>
     <div class="list">
       <p>Recent Water Change:</p>
       <div>
         <p>Percentage:</p>
-        <p>{{ tank.recent_water_change.percentage }}</p>
+        <input v-model="tank.recent_water_change.percentage"/>
       </div>
       <div>
         <p>Water Replaced:</p>
-        <p>{{ tank.recent_water_change.water_type }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_water_change.timestamp) }}</p>
+        <input v-model="tank.recent_water_change.water_type"/>
       </div>
     </div>
     <div class="list">
       <p>Recent Product:</p>
       <div>
         <p>Name:</p>
-        <p>{{ tank.recent_product.name }}</p>
+        <input v-model="tank.recent_product.name"/>
       </div>
       <div>
         <p>Dose:</p>
-        <p>{{ tank.recent_product.dose }} {{ tank.recent_product.unit }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_product.timestamp) }}</p>
+        <input v-model="tank.recent_product.dose"/>
+        <input v-model="tank.recent_product.unit"/>
       </div>
     </div>
     <div class="list">
       <p>Recent Water Column Fert.:</p>
       <div>
         <p>Name:</p>
-        <p>{{ tank.recent_water_fertilizer.name }}</p>
+        <input v-model="tank.recent_water_fertilizer.name"/>
       </div>
       <div>
         <p>Dose:</p>
-        <p>{{ tank.recent_water_fertilizer.dose }} {{ tank.recent_water_fertilizer.unit }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_water_fertilizer.timestamp) }}</p>
+        <input v-model="tank.recent_water_fertilizer.dose"/>
+        <input v-model="tank.recent_water_fertilizer.unit"/>
       </div>
     </div>
     <div class="list">
       <p>Recent Substrate Fert.:</p>
       <div>
         <p>Name:</p>
-        <p>{{ tank.recent_substrate_fertilizer.name }}</p>
+        <input v-model="tank.recent_substrate_fertilizer.name"/>
       </div>
       <div>
         <p>Dose:</p>
-        <p>{{ tank.recent_substrate_fertilizer.dose }} {{ tank.recent_substrate_fertilizer.unit }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_substrate_fertilizer.timestamp) }}</p>
+        <input v-model="tank.recent_substrate_fertilizer.dose"/>
+        <input v-model="tank.recent_substrate_fertilizer.unit"/>
       </div>
     </div>
     <div class="list">
       <p>Test Schedule:</p>
       <div v-for="(parameter) in tank.test_schedule">
         <p>{{ parameter.parameter }}</p>
-        <p>Every {{ parameter.frequency }} days</p>
+        <input v-model="parameter.frequency"/>
       </div>
     </div>
     <div class="list">

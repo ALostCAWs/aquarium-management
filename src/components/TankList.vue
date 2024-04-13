@@ -1,14 +1,14 @@
 <script setup>
-import ListItem from './ListItem.vue'
+import TankItem from './TankItem.vue'
 </script>
 
 <template>
   <div class="list-item-container">
-    <ListItem
+    <TankItem
       v-for="(item, index) in list"
       :key="index"
       :index="index"
-      :item="item"
+      :tank="item"
       v-on="$listeners"
     />
   </div>

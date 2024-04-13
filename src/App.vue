@@ -76,8 +76,8 @@ export default {
 
       this.toggleModal();
     },
-    updateItem({ index, text }) {
-      //
+    updateItem({ index, tank }) {
+      console.log(tank);
     },
     toggleSelectItem({ checked, item }) {
       item.selected = checked;
@@ -164,7 +164,7 @@ button:hover {
 
 .list-container {
   overflow-y: auto;
-  width: 35%;
+  width: 40%;
   margin: auto;
   margin-top: 2em;
 }
@@ -176,8 +176,9 @@ button:hover {
 }
 
 aside {
+  overflow: auto;
   position: fixed;
-  width: 15%;
+  width: 20%;
   height: 100vh;
   bottom: 0;
   background-color: var(--accent-color-faded);

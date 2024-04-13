@@ -1,29 +1,32 @@
 <script setup>
+import { Tank } from '../models/tank';
 import TankDetails from './TankDetails.vue';
+import TankEdit from './TankEdit.vue';
 </script>
 
 <template>
-  <div v-if="editActive" :id="`item-${index + 1}`" class="list-item selected">
+  <div v-if="editActive" :id="`tank-${index + 1}`" class="list-tank selected">
     <div>
-      <input
-        type="text"
-        :id="`update-item-${index + 1}`"
-        v-model="updatedItem"
-      >
+      <TankEdit
+        :key="`${tank.id}-edit`"
+        :tank="tank"
+      />
+    </div>
+    <div class="edit-controls">
       <button type="button" class="update" @click="update">Update</button>
       <button type="button" class="edit" @click="toggleEdit">Cancel</button>
     </div>
   </div>
-  <div v-else-if="detailsActive" :id="`item-${index + 1}`" class="list-item selected">
+  <div v-else-if="detailsActive" :id="`tank-${index + 1}`" class="list-tank selected">
     <div>
-      <p v-if="item.name">{{ item.name }}</p>
-      <p v-else>{{ item.id }}</p>
+      <p v-if="tank.name">{{ tank.name }}</p>
+      <p v-else>{{ tank.id }}</p>
       <button type="button" class="details" @click="toggleDetails">Close</button>
     </div>
-    <div class="item-details">
+    <div class="tank-details">
       <TankDetails
-        :key="`${item.id}-details`"
-        :item="item"
+        :key="`${tank.id}-details`"
+        :tank="tank"
       />
     </div>
     <div class="details-controls">
@@ -31,10 +34,9 @@ import TankDetails from './TankDetails.vue';
       <button type="button" class="details" @click="">Delete</button>
     </div>
   </div>
-  <div v-else :id="`item-${index + 1}`" class="list-item" :class="{ selected: item.selected }">
+  <div v-else :id="`tank-${index + 1}`" class="list-tank" :class="{ selected: tank.selected }">
     <div>
-      <p v-if="item.name">{{ item.name }}</p>
-      <p v-else>{{ item.id }}</p>
+      <p>{{ tank.id }}</p>
       <button type="button" class="details" @click="toggleDetails">Details</button>
     </div>
   </div>
@@ -44,11 +46,14 @@ import TankDetails from './TankDetails.vue';
 export default {
   props: {
     index: { required: true },
-    item: { required: true }
+    tank: { required: true }
   },
   methods: {
+    createTank() {
+      Object.setPrototypeOf(Tank.prototype, this.tank);
+    },
     select(e) {
-      this.$emit('onSelect', { checked: e.target.checked, item: this.item });
+      this.$emit('onSelect', { checked: e.target.checked, tank: this.tank });
     },
     toggleDetails() {
       this.detailsActive = !this.detailsActive;
@@ -56,11 +61,8 @@ export default {
     toggleEdit() {
       this.editActive = !this.editActive;
     },
-    setUpdatedText(text) {
-      this.updatedItem = text
-    },
     update() {
-      this.$emit('onUpdate', { index: this.index, text: this.updatedItem });
+      this.$emit('onUpdate', { index: this.index, tank: this.updatedTank });
       this.toggleEdit();
     }
   },
@@ -68,8 +70,11 @@ export default {
     return {
       detailsActive: false,
       editActive: false,
-      updatedItem: this.item.text
+      updatedTank: this.tank,
     }
+  },
+  created() {
+    this.createTank();
   }
 }
 </script>
@@ -82,10 +87,7 @@ p {
 </style>
 
 <style>
-.list-item {
-  display: flex;
-  flex-direction: column;
-
+.list-tank {
   width: 100%;
   height: 100%;
 
@@ -97,7 +99,7 @@ p {
   border-radius: 10px;
 }
 
-.list-item div:first-of-type:not(.item-details):not(.item) {
+.list-tank > div:first-of-type:not(.tank-details):not(.tank) {
   display: flex;
   flex-direction: row;
 
@@ -105,17 +107,17 @@ p {
   height: 100%;
 }
 
-.list-item:hover,
+.list-tank:hover,
 .selected {
   background-color: var(--accent-color-faded);
   border: thin solid var(--accent-color);
 }
 
-.list-item div:first-of-type input {
+.list-tank div:first-of-type input {
   background-color: var(--overlay-color);
 }
 
-.list-item .details {
+.list-tank .details {
   margin-left: auto;
 }
 
@@ -127,7 +129,8 @@ p {
   /* margin-left: 2.5%; */
 }
 
-.details-controls {
+.details-controls,
+.edit-controls {
   display: flex;
   flex-direction: row;
 
