@@ -76,8 +76,20 @@ export default {
 
       this.toggleModal();
     },
-    updateItem({ index, tank }) {
+    async updateItem({ index, tank }) {
       console.log(tank);
+
+      const response = await fetch(`http://localhost:3000/tanks/`, {
+        method: 'PUT',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tank)
+      });
+      console.log(await response.json());
     },
     toggleSelectItem({ checked, item }) {
       item.selected = checked;

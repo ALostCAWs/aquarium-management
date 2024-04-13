@@ -63,6 +63,10 @@ import { timestampToDate } from '../functions/convertData'
         <p>Water Replaced:</p>
         <input v-model="tank.recent_water_change.water_type"/>
       </div>
+      <div>
+        <p>Date:</p>
+        <input v-model="tank.recent_water_change.timestamp"/>
+      </div>
     </div>
     <div class="list">
       <p>Recent Product:</p>
