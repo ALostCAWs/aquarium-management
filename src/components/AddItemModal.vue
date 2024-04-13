@@ -1,6 +1,6 @@
 <script setup>
-import LabelTextbox from './LabelTextbox.vue'
-import ToggleModalButton from './ToggleModalButton.vue'
+import LabelTextbox from './base/LabelTextbox.vue'
+import ToggleAddModal from './buttons/ToggleAddModal.vue'
 </script>
 
 <template>
@@ -16,7 +16,7 @@ import ToggleModalButton from './ToggleModalButton.vue'
           @onUpdate="setDate"
         />
       </div>
-      <ToggleModalButton
+      <ToggleAddModal
         @onToggle="create"
       />
     </div>
@@ -25,6 +25,11 @@ import ToggleModalButton from './ToggleModalButton.vue'
 
 <script>
 export default {
+  name: 'AddItemModal',
+  comments: {
+    LabelTextbox,
+    ToggleAddModal
+  },
   methods: {
     setText(text) {
       this.text = text;

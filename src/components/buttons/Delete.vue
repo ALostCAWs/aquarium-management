@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name: 'Delete',
   props: {
     deleteSelectedItems: { required: true }
   },

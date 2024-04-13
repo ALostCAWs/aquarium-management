@@ -1,7 +1,3 @@
-<script setup>
-import { timestampToDate } from '../functions/convertData'
-</script>
-
 <template>
   <div class="item">
     <div>
@@ -134,13 +130,14 @@ import { timestampToDate } from '../functions/convertData'
 
 <script>
 export default {
+  name: 'TankEdit',
   props: {
     tank: { required: true }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .item {
   width: 100%;
 }

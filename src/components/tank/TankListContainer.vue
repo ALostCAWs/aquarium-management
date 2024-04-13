@@ -1,10 +1,10 @@
 <script setup>
-import TankItem from './TankItem.vue'
+import Tank from './Tank.vue'
 </script>
 
 <template>
   <div class="list-item-container">
-    <TankItem
+    <Tank
       v-for="(item, index) in list"
       :key="index"
       :index="index"
@@ -16,6 +16,10 @@ import TankItem from './TankItem.vue'
 
 <script>
 export default {
+  name: 'TankListContainer',
+  comments: {
+    Tank
+  },
   props: {
     list: { required: true }
   },

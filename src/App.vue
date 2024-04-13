@@ -1,9 +1,9 @@
 <script setup>
+import Sidebar from './components/sidebar/Sidebar.vue'
 import AddItemModal from './components/AddItemModal.vue'
-import ToggleModalButton from './components/ToggleModalButton.vue'
-import DeleteItemButton from './components/DeleteItemButton.vue'
-import Sidebar from './components/Sidebar.vue'
-import TankList from './components/TankList.vue'
+import ToggleAddModal from './components/buttons/ToggleAddModal.vue'
+import Delete from './components/buttons/Delete.vue'
+import TankListContainer from './components/tank/TankListContainer.vue'
 </script>
 
 <template>
@@ -24,15 +24,15 @@ import TankList from './components/TankList.vue'
       <section class="list-container">
         <h2>Tank List</h2>
         <div class="list-btn-container">
-          <ToggleModalButton
+          <ToggleAddModal
             @onToggle="toggleModal"
           />
-          <DeleteItemButton
+          <Delete
             :deleteSelectedItems="deleteSelectedItems"
             v-show="itemSelected"
           />
         </div>
-        <TankList
+        <TankListContainer
           :list="tanks"
           @onSelect="toggleSelectItem"
           @onUpdate="updateItem"
@@ -52,10 +52,10 @@ export default {
   name: 'App',
   components: {
     AddItemModal,
-    ToggleModalButton,
-    DeleteItemButton,
+    ToggleAddModal,
+    Delete,
     Sidebar,
-    TankList
+    TankListContainer
   },
   methods: {
     toggleModal() {

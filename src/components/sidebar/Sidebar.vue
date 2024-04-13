@@ -1,7 +1,7 @@
 <script setup>
 import SidebarList from './SidebarList.vue'
-import { toTitleCase } from '../functions/convertData'
-import { sortGeneraArray } from '../functions/sortData.js'
+import { toTitleCase } from '../../functions/convertData'
+import { sortGeneraArray } from '../../functions/sortData'
 </script>
 
 <template>
@@ -23,6 +23,10 @@ import { sortGeneraArray } from '../functions/sortData.js'
 
 <script>
 export default {
+  name: 'Sidebar',
+  comments: {
+    SidebarList
+  },
   props: {
     group: { required: true }
   },

@@ -1,6 +1,6 @@
 <script setup>
-import { toTitleCase } from '../functions/convertData.js'
-import { sortSpeciesArray } from '../functions/sortData.js';
+import { toTitleCase } from '../../functions/convertData'
+import { sortSpeciesArray } from '../../functions/sortData';
 </script>
 
 <template>
@@ -25,6 +25,7 @@ import { sortSpeciesArray } from '../functions/sortData.js';
 
 <script>
 export default {
+  name: 'SidebarList',
   props: {
     group: { required: true },
     genus: { required: true }

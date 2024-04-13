@@ -1,13 +1,17 @@
 <script setup>
-import { timestampToDate } from '../functions/convertData'
+import { timestampToDate } from '../../functions/convertData'
+import TankProperty from './TankProperty.vue';
+import TankVolume from './properties/TankVolume.vue';
 </script>
 
 <template>
   <div class="item">
-    <div>
-      <p>Volume:</p>
-      <p>{{ tank.volume }} {{ tank.volume_unit }}</p>
-    </div>
+    <TankProperty>
+      <TankVolume
+        :volume="tank.volume"
+        :unit="tank.volume_unit"
+      />
+    </TankProperty>
     <div>
       <p>Cycled:</p>
       <p>{{ tank.is_cycled }}</p>
@@ -140,6 +144,11 @@ import { timestampToDate } from '../functions/convertData'
 
 <script>
 export default {
+  name: 'TankDetails',
+  comments: {
+    TankProperty,
+    TankVolume
+  },
   props: {
     tank: { required: true }
   }
@@ -155,7 +164,7 @@ export default {
   margin-top: .75em;
 }
 
-.item > div:not(.list),
+.item > div > div:not(.list),
 .item .list > div {
   display: flex;
   flex-direction: row;

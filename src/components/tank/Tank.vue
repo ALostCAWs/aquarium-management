@@ -1,5 +1,5 @@
 <script setup>
-import { Tank } from '../models/tank';
+import { Tank } from '../../models/tank';
 import TankDetails from './TankDetails.vue';
 import TankEdit from './TankEdit.vue';
 </script>
@@ -44,6 +44,11 @@ import TankEdit from './TankEdit.vue';
 
 <script>
 export default {
+  name: 'Tank',
+  comments: {
+    TankDetails,
+    TankEdit
+  },
   props: {
     index: { required: true },
     tank: { required: true }
