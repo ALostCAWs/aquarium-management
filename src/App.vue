@@ -4,6 +4,7 @@ import AddItemModal from './components/AddItemModal.vue'
 import ToggleAddModal from './components/buttons/ToggleAddModal.vue'
 import Delete from './components/buttons/Delete.vue'
 import TankListContainer from './components/tank/TankListContainer.vue'
+import { sortTankArray } from './functions/sortData'
 </script>
 
 <template>
@@ -83,6 +84,7 @@ export default {
         const response = await fetch('http://localhost:3000/tanks/');
         const allTanks = await response.json();
         const allTanksUnselected = allTanks.map(t => ({ ...t, selected: false }));
+        allTanksUnselected.sort(sortTankArray);
         this.tanks = allTanksUnselected;
       } catch (e) {
         console.error(e);

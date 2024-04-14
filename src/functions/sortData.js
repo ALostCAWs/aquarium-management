@@ -8,7 +8,11 @@ const returnSortNumber = (a, b) => {
   return 0;
 }
 
-export function sortGeneraArray (a, b) {
+export function sortTankArray(a, b) {
+  return returnSortNumber(a.id, b.id);
+}
+
+export function sortGeneraArray(a, b) {
   return returnSortNumber(a.genus, b.genus);
 }
 
