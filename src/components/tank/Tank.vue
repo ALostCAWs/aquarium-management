@@ -19,11 +19,10 @@ import TankDetails from './TankDetails.vue';
       />
     </div>
     <div class="details-controls">
-      <!-- <button type="button" class="edit" @click="toggleEdit">Edit</button> -->
       <button type="button" class="details" @click="">Delete</button>
     </div>
   </div>
-  <div v-else :id="`tank-${index + 1}`" class="list-tank" :class="{ selected: tank.selected }">
+  <div v-else :id="`tank-${tank.id}`" class="list-tank" :class="{ selected: tank.selected }">
     <div>
       <p>{{ tank.id }}</p>
       <button type="button" class="details" @click="toggleDetails">Details</button>
@@ -108,14 +107,6 @@ p {
 
 .list-tank .details {
   margin-left: auto;
-}
-
-.edit {
-  /* margin-left: auto; */
-}
-
-.update {
-  /* margin-left: 2.5%; */
 }
 
 .details-controls,

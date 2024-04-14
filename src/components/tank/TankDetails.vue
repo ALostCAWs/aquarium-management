@@ -1,9 +1,13 @@
 <script setup>
 import Volume from './properties/Volume.vue';
 import Cycle from './properties/Cycle.vue'
+import Filtration from './properties/Filtration.vue'
 import Substrate from './properties/Substrate.vue'
 import Temperature from './properties/Temperature.vue'
+import Light from './properties/Light.vue'
 import Parameters from './properties/Parameters.vue';
+import TestSchedule from './properties/TestSchedule.vue';
+import WaterChange from './properties/WaterChange.vue';
 import Product from './properties/Product.vue';
 import TankInhabitants from './properties/TankInhabitants.vue'
 import Ailments from './properties/Ailments.vue'
@@ -22,6 +26,11 @@ import Ailments from './properties/Ailments.vue'
       :index="index"
       :cycled="tank.is_cycled"
     />
+    <Filtration
+      v-on="$listeners"
+      :index="index"
+      :filtration="tank.filtration"
+    />
     <Substrate
       v-on="$listeners"
       :index="index"
@@ -33,45 +42,26 @@ import Ailments from './properties/Ailments.vue'
       :temperature="tank.temperature_setting"
       :unit="tank.temperature_unit"
     />
-    <!--<div class="list">
-      <p>Light Settings:</p>
-      <div>
-        <p>Name:</p>
-        <p>{{ tank.light_settings.name }}</p>
-      </div>
-      <div>
-        <p>Strength:</p>
-        <p>{{ tank.light_settings.strength }}</p>
-      </div>
-      <div>
-        <p>Percentage:</p>
-        <p>{{ tank.light_settings.percentage }}</p>
-      </div>
-      <div>
-        <p>Hours on:</p>
-        <p>{{ tank.light_settings.hours_on }}</p>
-      </div>
-    </div>-->
+    <Light
+      v-on="$listeners"
+      :index="index"
+      :light_settings="tank.light_settings"
+    />
     <Parameters
       v-on="$listeners"
       :index="index"
       :parameters="tank.parameters"
     />
-    <!--<div class="list">
-      <p>Recent Water Change:</p>
-      <div>
-        <p>Percentage:</p>
-        <p>{{ tank.recent_water_change.percentage }}</p>
-      </div>
-      <div>
-        <p>Water Replaced:</p>
-        <p>{{ tank.recent_water_change.water_type }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_water_change.timestamp) }}</p>
-      </div>
-    </div>-->
+    <TestSchedule
+      v-on="$listeners"
+      :index="index"
+      :parameters="tank.test_schedule"
+    />
+    <WaterChange
+      v-on="$listeners"
+      :index="index"
+      :water_change="tank.recent_water_change"
+    />
     <Product
       v-on="$listeners"
       :index="index"
@@ -130,7 +120,10 @@ export default {
     Cycle,
     Substrate,
     Temperature,
+    Light,
     Parameters,
+    TestSchedule,
+    WaterChange,
     Product,
     TankInhabitants,
     Ailments

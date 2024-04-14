@@ -10,7 +10,10 @@ export function timestampToDate(timestamp) {
   const date = new Date(parseInt(timestamp));
   const dd = date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate();
   const MM = date.getMonth() <= 8 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
-  return `${dd}-${MM}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  const HH = date.getHours() <= 9 ? `0${date.getHours()}` : date.getHours();
+  const mm = date.getMinutes() <= 9 ? `0${date.getMinutes()}` : date.getMinutes();
+  const ss = date.getSeconds() <= 9 ? `0${date.getSeconds()}` : date.getSeconds();
+  return `${dd}-${MM}-${date.getFullYear()} ${HH}:${mm}:${ss}`;
 }
 
 export default { toTitleCase, timestampToDate };

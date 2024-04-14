@@ -39,9 +39,13 @@ import { sortTankArray } from './functions/sortData'
           @onUpdate="updateItem"
           @onUpdateVolume="updateVolume"
           @onUpdateCycle="updateCycle"
+          @onUpdateFiltration="updateFiltration"
           @onUpdateSubstrate="updateSubstrate"
           @onUpdateTemperature="updateTemperature"
+          @onUpdateLight="updateLight"
           @onUpdateParameters="updateParameters"
+          @onUpdateTestSchedule="updateTestSchedule"
+          @onUpdateWaterChange="updateWaterChange"
           @onUpdateRecentProduct="updateRecentProduct"
           @onUpdateRecentSubstrateFert="updateRecentSubstrateFert"
           @onUpdateRecentWaterFert="updateRecentWaterFert"
@@ -104,6 +108,10 @@ export default {
       this.tanks[index].is_cycled = cycle;
       this.updateItem(index);
     },
+    updateFiltration({ index, filtration }) {
+      this.tanks[index].filtration = filtration;
+      this.updateItem(index);
+    },
     updateSubstrate({ index, substrate }) {
       this.tanks[index].substrate = substrate;
       this.updateItem(index);
@@ -113,8 +121,20 @@ export default {
       this.tanks[index].temperature_unit = unit;
       this.updateItem(index);
     },
+    updateLight({ index, light_settings }) {
+      this.tanks[index].light_settings = light_settings;
+      this.updateItem(index);
+    },
     updateParameters({ index, parameters }) {
       this.tanks[index].parameters = parameters;
+      this.updateItem(index);
+    },
+    updateTestSchedule({ index, parameters }) {
+      this.tanks[index].test_schedule = parameters;
+      this.updateItem(index);
+    },
+    updateWaterChange({ index, water_change }) {
+      this.tanks[index].recent_water_change = water_change;
       this.updateItem(index);
     },
     updateRecentProduct({ index, product }) {

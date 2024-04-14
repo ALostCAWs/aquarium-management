@@ -8,42 +8,41 @@ import { timestampToDate } from '../../../functions/convertData'
   <div class="tank-property list">
     <div v-show="!editActive">
       <div>
-        <p>{{ property }}:</p>
+        <p>Water Change:</p>
         <div>
-          <p>Name:</p>
-          <p>{{ product.name }}</p>
+          <p>Percentage:</p>
+          <p>{{ water_change.percentage }}</p>
         </div>
         <div>
-          <p>Dose:</p>
-          <p>{{ product.dose }} {{ product.unit }}</p>
+          <p>Water Type:</p>
+          <p>{{ water_change.water_type }}</p>
         </div>
         <div>
           <p>Date:</p>
-          <p>{{ timestampToDate(product.timestamp) }}</p>
+          <p>{{ timestampToDate(water_change.timestamp) }}</p>
         </div>
       </div>
       <div class="property-controls">
         <ToggleEditCancel
-          @onToggleEdit="toggleEdit"
-          :editActive="editActive"
-        />
+        @onToggleEdit="toggleEdit"
+        :editActive="editActive"
+      />
       </div>
     </div>
     <div v-show="editActive">
       <div>
-        <p>{{ property }}:</p>
+        <p>Water Change:</p>
         <div>
-          <p>Name:</p>
-          <input v-model="updatedProduct.name"/>
+          <p>Percentage:</p>
+          <input v-model.number="updatedWaterChange.percentage"/>
         </div>
         <div>
-          <p>Dose:</p>
-          <input v-model.number="updatedProduct.dose"/>
-          <input v-model="updatedProduct.unit"/>
+          <p>Water Type:</p>
+          <input v-model="updatedWaterChange.water_type"/>
         </div>
         <div>
           <p>Date:</p>
-          <input v-model="updatedProduct.timestamp"/>
+          <input v-model="updatedWaterChange.timestamp"/>
         </div>
       </div>
       <div class="property-controls">
@@ -61,26 +60,24 @@ import { timestampToDate } from '../../../functions/convertData'
 
 <script>
 export default {
-  name: 'Product',
+  name: 'WaterChange',
   props: {
     index: { required: true },
-    property: { required: true },
-    event: { required: true },
-    product: { required: true }
+    water_change: { required: true }
   },
   methods: {
     toggleEdit() {
       this.editActive = !this.editActive;
     },
     update() {
-      this.$emit(this.event, { index: this.index, product: this.updatedProduct });
+      this.$emit('onUpdateWaterChange', { index: this.index, water_change: this.updatedWaterChange });
       this.toggleEdit();
     }
   },
   data() {
     return {
       editActive: false,
-      updatedProduct: this.product
+      updatedWaterChange: this.water_change
     }
   }
 }

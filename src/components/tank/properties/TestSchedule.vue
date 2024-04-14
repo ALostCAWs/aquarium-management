@@ -4,11 +4,14 @@ import Update from '../../buttons/Update.vue';
 </script>
 
 <template>
-  <div class="tank-property">
+  <div class="tank-property list">
     <div v-show="!editActive">
       <div>
-        <p>Temperature:</p>
-        <p>{{ temperature }}</p>
+        <p>Test Schedule:</p>
+        <div v-for="(parameter) in parameters">
+          <p>{{ parameter.parameter }}</p>
+          <p>Every {{ parameter.frequency }} days</p>
+        </div>
       </div>
       <div class="property-controls">
         <ToggleEditCancel
@@ -19,9 +22,11 @@ import Update from '../../buttons/Update.vue';
     </div>
     <div v-show="editActive">
       <div>
-        <p>Temperature:</p>
-        <input v-model.number="updatedTemperature"/>
-        <input v-model="updatedUnit"/>
+        <p>Test Schedule:</p>
+        <div v-for="(updatedParameter) in updatedParameters">
+          <p>{{ updatedParameter.parameter }}</p>
+          <input v-model.number="updatedParameter.frequency"/>
+        </div>
       </div>
       <div class="property-controls">
         <ToggleEditCancel
@@ -38,26 +43,24 @@ import Update from '../../buttons/Update.vue';
 
 <script>
 export default {
-  name: 'Temperature',
+  name: 'TestSchedule',
   props: {
     index: { required: true },
-    temperature: { required: true },
-    unit: { required: true }
+    parameters: { required: true }
   },
   methods: {
     toggleEdit() {
       this.editActive = !this.editActive;
     },
     update() {
-      this.$emit('onUpdateTemperature', { index: this.index, temperature: this.updatedTemperature, unit: updatedUnit });
+      this.$emit('onUpdateTestSchedule', { index: this.index, parameters: this.updatedParameters });
       this.toggleEdit();
     }
   },
   data() {
     return {
       editActive: false,
-      updatedTemperature: this.temperature,
-      updatedUnit: this.unit
+      updatedParameters: this.parameters
     }
   }
 }
