@@ -1,23 +1,10 @@
 <script setup>
 import { Tank } from '../../models/tank';
 import TankDetails from './TankDetails.vue';
-import TankEdit from './TankEdit.vue';
 </script>
 
 <template>
-  <div v-if="editActive" :id="`tank-${index + 1}`" class="list-tank selected">
-    <div>
-      <TankEdit
-        :key="`${tank.id}-edit`"
-        :tank="tank"
-      />
-    </div>
-    <div class="edit-controls">
-      <button type="button" class="update" @click="update">Update</button>
-      <button type="button" class="edit" @click="toggleEdit">Cancel</button>
-    </div>
-  </div>
-  <div v-else-if="detailsActive" :id="`tank-${index + 1}`" class="list-tank selected">
+  <div v-if="detailsActive" :id="`tank-${index + 1}`" class="list-tank selected">
     <div>
       <p v-if="tank.name">{{ tank.name }}</p>
       <p v-else>{{ tank.id }}</p>
@@ -26,11 +13,13 @@ import TankEdit from './TankEdit.vue';
     <div class="tank-details">
       <TankDetails
         :key="`${tank.id}-details`"
+        :index="index"
         :tank="tank"
+        v-on="$listeners"
       />
     </div>
     <div class="details-controls">
-      <button type="button" class="edit" @click="toggleEdit">Edit</button>
+      <!-- <button type="button" class="edit" @click="toggleEdit">Edit</button> -->
       <button type="button" class="details" @click="">Delete</button>
     </div>
   </div>
@@ -46,8 +35,7 @@ import TankEdit from './TankEdit.vue';
 export default {
   name: 'Tank',
   comments: {
-    TankDetails,
-    TankEdit
+    TankDetails
   },
   props: {
     index: { required: true },
@@ -63,9 +51,6 @@ export default {
     toggleDetails() {
       this.detailsActive = !this.detailsActive;
     },
-    toggleEdit() {
-      this.editActive = !this.editActive;
-    },
     update() {
       this.$emit('onUpdate', { index: this.index, tank: this.updatedTank });
       this.toggleEdit();
@@ -74,7 +59,6 @@ export default {
   data() {
     return {
       detailsActive: false,
-      editActive: false,
       updatedTank: this.tank,
     }
   },

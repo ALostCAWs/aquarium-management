@@ -1,34 +1,39 @@
 <script setup>
-import { timestampToDate } from '../../functions/convertData'
-import TankProperty from './TankProperty.vue';
-import TankVolume from './properties/TankVolume.vue';
+import Volume from './properties/Volume.vue';
+import Cycle from './properties/Cycle.vue'
+import Substrate from './properties/Substrate.vue'
+import Temperature from './properties/Temperature.vue'
+import Parameters from './properties/Parameters.vue';
+import Product from './properties/Product.vue';
+import TankInhabitants from './properties/TankInhabitants.vue'
+import Ailments from './properties/Ailments.vue'
 </script>
 
 <template>
   <div class="item">
-    <TankProperty>
-      <TankVolume
-        :volume="tank.volume"
-        :unit="tank.volume_unit"
-      />
-    </TankProperty>
-    <div>
-      <p>Cycled:</p>
-      <p>{{ tank.is_cycled }}</p>
-    </div>
-    <div>
-      <p>Filtration:</p>
-      <p>{{ tank.filtration }}</p>
-    </div>
-    <div>
-      <p>Substrate:</p>
-      <p>{{ tank.substrate }}</p>
-    </div>
-    <div>
-      <p>Temperature Setting:</p>
-      <p>{{ tank.temperature_setting }} {{ tank.temperature_unit }}</p>
-    </div>
-    <div class="list">
+    <Volume
+      v-on="$listeners"
+      :index="index"
+      :volume="tank.volume"
+      :unit="tank.volume_unit"
+    />
+    <Cycle
+      v-on="$listeners"
+      :index="index"
+      :cycled="tank.is_cycled"
+    />
+    <Substrate
+      v-on="$listeners"
+      :index="index"
+      :substrate="tank.substrate"
+    />
+    <Temperature
+      v-on="$listeners"
+      :index="index"
+      :temperature="tank.temperature_setting"
+      :unit="tank.temperature_unit"
+    />
+    <!--<div class="list">
       <p>Light Settings:</p>
       <div>
         <p>Name:</p>
@@ -46,15 +51,13 @@ import TankVolume from './properties/TankVolume.vue';
         <p>Hours on:</p>
         <p>{{ tank.light_settings.hours_on }}</p>
       </div>
-    </div>
-    <div class="list">
-      <p>Parameters:</p>
-      <div v-for="(parameter) in tank.parameters">
-        <p>{{ parameter.parameter }} {{ parameter.result }}{{ parameter.result_unit }}</p>
-        <p>{{ timestampToDate(parameter.timestamp) }}</p>
-      </div>
-    </div>
-    <div class="list">
+    </div>-->
+    <Parameters
+      v-on="$listeners"
+      :index="index"
+      :parameters="tank.parameters"
+    />
+    <!--<div class="list">
       <p>Recent Water Change:</p>
       <div>
         <p>Percentage:</p>
@@ -68,77 +71,54 @@ import TankVolume from './properties/TankVolume.vue';
         <p>Date:</p>
         <p>{{ timestampToDate(tank.recent_water_change.timestamp) }}</p>
       </div>
-    </div>
-    <div class="list">
-      <p>Recent Product:</p>
-      <div>
-        <p>Name:</p>
-        <p>{{ tank.recent_product.name }}</p>
-      </div>
-      <div>
-        <p>Dose:</p>
-        <p>{{ tank.recent_product.dose }} {{ tank.recent_product.unit }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_product.timestamp) }}</p>
-      </div>
-    </div>
-    <div class="list">
-      <p>Recent Water Column Fert.:</p>
-      <div>
-        <p>Name:</p>
-        <p>{{ tank.recent_water_fertilizer.name }}</p>
-      </div>
-      <div>
-        <p>Dose:</p>
-        <p>{{ tank.recent_water_fertilizer.dose }} {{ tank.recent_water_fertilizer.unit }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_water_fertilizer.timestamp) }}</p>
-      </div>
-    </div>
-    <div class="list">
-      <p>Recent Substrate Fert.:</p>
-      <div>
-        <p>Name:</p>
-        <p>{{ tank.recent_substrate_fertilizer.name }}</p>
-      </div>
-      <div>
-        <p>Dose:</p>
-        <p>{{ tank.recent_substrate_fertilizer.dose }} {{ tank.recent_substrate_fertilizer.unit }}</p>
-      </div>
-      <div>
-        <p>Date:</p>
-        <p>{{ timestampToDate(tank.recent_substrate_fertilizer.timestamp) }}</p>
-      </div>
-    </div>
-    <div class="list">
+    </div>-->
+    <Product
+      v-on="$listeners"
+      :index="index"
+      :property="'Recent Product'"
+      :event="'onUpdateRecentProduct'"
+      :product="tank.recent_product"
+    />
+    <Product
+      v-on="$listeners"
+      :index="index"
+      :property="'Recent Water Fert.'"
+      :event="'onUpdateRecentWaterFert'"
+      :product="tank.recent_water_fertilizer"
+    />
+    <Product
+      v-on="$listeners"
+      :index="index"
+      :property="'Recent Substrate Fert.'"
+      :event="'onUpdateRecentSubstrateFert'"
+      :product="tank.recent_substrate_fertilizer"
+    />
+    <!--<div class="list">
       <p>Test Schedule:</p>
       <div v-for="(parameter) in tank.test_schedule">
         <p>{{ parameter.parameter }}</p>
         <p>Every {{ parameter.frequency }} days</p>
       </div>
-    </div>
-    <div class="list">
-      <p>Livestock List:</p>
-      <p v-for="(inhabitant) in tank.livestock">
-        {{ inhabitant.genus }} {{ inhabitant.species }}
-      </p>
-    </div>
-    <div class="list">
-      <p>Plant List:</p>
-      <p v-for="(inhabitant) in tank.plants">
-        {{ inhabitant.genus }} {{ inhabitant.species }}
-      </p>
-    </div>
-    <div class="list">
-      <p>Ailments:</p>
-      <p v-for="(ailment) in tank.ailments">
-        {{ ailment.name }} ({{ ailment.type }})
-      </p>
-    </div>
+    </div>-->
+    <TankInhabitants
+      v-on="$listeners"
+      :index="index"
+      :property="'Livestock'"
+      :event="'onUpdateLivestock'"
+      :inhabitants="tank.livestock"
+    />
+    <TankInhabitants
+      v-on="$listeners"
+      :index="index"
+      :property="'Plants'"
+      :event="'onUpdatePlants'"
+      :inhabitants="tank.plants"
+    />
+    <Ailments
+      v-on="$listeners"
+      :index="index"
+      :ailments="tank.ailments"
+    />
   </div>
 </template>
 
@@ -146,10 +126,17 @@ import TankVolume from './properties/TankVolume.vue';
 export default {
   name: 'TankDetails',
   comments: {
-    TankProperty,
-    TankVolume
+    Volume,
+    Cycle,
+    Substrate,
+    Temperature,
+    Parameters,
+    Product,
+    TankInhabitants,
+    Ailments
   },
   props: {
+    index: { required: true },
     tank: { required: true }
   }
 }
@@ -160,31 +147,61 @@ export default {
   width: 100%;
 }
 
+.item p {
+  margin-top: .1em;
+}
+
+.item p,
+.item input {
+  width: 50%;
+  line-height: 1.5em;
+}
+
+.item input:not(:only-of-type) {
+  width: 25%;
+}
+
 .item > div {
   margin-top: .75em;
 }
 
-.item > div > div:not(.list),
-.item .list > div {
+.item > div:not(.list) > div > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.item div p {
-  width: 50%;
+.tank-property {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
 }
 
-.item .list > p:not(:first-of-type),
-.item .list > div > p:nth-child(odd) {
-  padding-left: 10%;
+.property-controls {
+  display: flex;
 }
 
-.item .list > div > p:first-of-type {
+.tank-property button {
+  margin-top: .4em;
+}
+
+.list > div > div > div:not(:has(input)) {
+  display: flex;
+  flex-direction: row;
+}
+
+.list > div > div > div:has(input) {
+  display: flex;
+}
+
+.list > div > div > div:has(input) p {
+  margin-left: 10%;
   width: 40%;
 }
 
-.item .list:not(:has(div)) p {
-  width: 100%;
+.list > div > div > div:not(:has(input)) > p:first-of-type {
+  width: 40%;
+  margin-left: 10%;
 }
 </style>

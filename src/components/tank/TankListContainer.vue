@@ -17,7 +17,7 @@ import Tank from './Tank.vue'
 <script>
 export default {
   name: 'TankListContainer',
-  comments: {
+  components: {
     Tank
   },
   props: {

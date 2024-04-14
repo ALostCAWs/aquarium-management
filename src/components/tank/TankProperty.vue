@@ -1,14 +1,26 @@
 <script setup>
-import EditItemButton from '../buttons/ToggleEditCancel.vue'
+import ToggleEditCancel from '../buttons/ToggleEditCancel.vue'
+import Update from '../buttons/Update.vue'
 </script>
 
 <template>
   <div class="tank-property">
-    <slot/>
-    <EditItemButton
-      @onToggleEdit="toggleEdit"
+    <slot
       :editActive="editActive"
     />
+    <div v-show="!editActive" class="property-controls">
+      <ToggleEditCancel
+        @onToggleEdit="toggleEdit"
+        :editActive="editActive"
+      />
+    </div>
+    <div v-show="editActive" class="property-controls">
+      <ToggleEditCancel
+        @onToggleEdit="toggleEdit"
+        :editActive="editActive"
+      />
+      <Update/>
+    </div>
   </div>
 </template>
 
@@ -26,9 +38,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.tank-property button {
-  margin-top: .4em;
-}
-</style>

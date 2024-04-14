@@ -36,6 +36,15 @@ import TankListContainer from './components/tank/TankListContainer.vue'
           :list="tanks"
           @onSelect="toggleSelectItem"
           @onUpdate="updateItem"
+          @onUpdateVolume="updateVolume"
+          @onUpdateCycle="updateCycle"
+          @onUpdateSubstrate="updateSubstrate"
+          @onUpdateTemperature="updateTemperature"
+          @onUpdateParameters="updateParameters"
+          @onUpdateRecentProduct="updateRecentProduct"
+          @onUpdateRecentSubstrateFert="updateRecentSubstrateFert"
+          @onUpdateRecentWaterFert="updateRecentWaterFert"
+          @onUpdateAilments="updateAilments"
         />
       </section>
       <aside class="sidebar-right">
@@ -61,6 +70,14 @@ export default {
     toggleModal() {
       this.modalActive = !this.modalActive;
     },
+    toggleSelectItem({ checked, item }) {
+      item.selected = checked;
+      if (checked) {
+        this.itemSelected = true;
+      } else {
+        this.itemSelected = this.tanks.filter((item) => { return item.selected }).length > 0;
+      }
+    },
     async getAllTanks() {
       try {
         const response = await fetch('http://localhost:3000/tanks/');
@@ -76,9 +93,46 @@ export default {
 
       this.toggleModal();
     },
-    async updateItem({ index, tank }) {
-      console.log(tank);
-
+    updateVolume({ index, volume, unit }) {
+      this.tanks[index].volume = volume;
+      this.tanks[index].volume_unit = unit;
+      this.updateItem(index);
+    },
+    updateCycle({ index, cycle }) {
+      this.tanks[index].is_cycled = cycle;
+      this.updateItem(index);
+    },
+    updateSubstrate({ index, substrate }) {
+      this.tanks[index].substrate = substrate;
+      this.updateItem(index);
+    },
+    updateTemperature({ index, temperature, unit }) {
+      this.tanks[index].temperature_setting = temperature;
+      this.tanks[index].temperature_unit = unit;
+      this.updateItem(index);
+    },
+    updateParameters({ index, parameters }) {
+      this.tanks[index].parameters = parameters;
+      this.updateItem(index);
+    },
+    updateRecentProduct({ index, product }) {
+      this.tanks[index].recent_product = product;
+      this.updateItem(index);
+    },
+    updateRecentSubstrateFert({ index, product }) {
+      this.tanks[index].recent_substrate_fertilizer = product;
+      this.updateItem(index);
+    },
+    updateRecentWaterFert({ index, product }) {
+      this.tanks[index].recent_water_fertilizer = product;
+      this.updateItem(index);
+    },
+    updateAilments({ index, ailments }) {
+      this.tanks[index].ailments = ailments;
+      this.updateItem(index);
+    },
+    async updateItem(index) {
+      const tank = this.tanks[index];
       const response = await fetch(`http://localhost:3000/tanks/`, {
         method: 'PUT',
         mode: 'cors',
@@ -90,14 +144,6 @@ export default {
         body: JSON.stringify(tank)
       });
       console.log(await response.json());
-    },
-    toggleSelectItem({ checked, item }) {
-      item.selected = checked;
-      if (checked) {
-        this.itemSelected = true;
-      } else {
-        this.itemSelected = this.tanks.filter((item) => { return item.selected }).length > 0;
-      }
     },
     deleteSelectedItems() {
       //
@@ -175,7 +221,6 @@ button:hover {
 }
 
 .list-container {
-  overflow-y: auto;
   width: 40%;
   margin: auto;
   margin-top: 2em;
