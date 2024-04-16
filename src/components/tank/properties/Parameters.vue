@@ -62,7 +62,13 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedParameters: this.parameters
+      updatedParameters: []
+    }
+  },
+  created() {
+    for (const [i, parameter] of this.parameters.entries()) {
+      const copyParameter = structuredClone(parameter);
+      this.updatedParameters.push(copyParameter);
     }
   }
 }

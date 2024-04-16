@@ -40,10 +40,6 @@ import { timestampToDate } from '../../../functions/convertData'
           <p>Water Type:</p>
           <input v-model="updatedWaterChange.water_type"/>
         </div>
-        <div>
-          <p>Date:</p>
-          <input v-model="updatedWaterChange.timestamp"/>
-        </div>
       </div>
       <div class="property-controls">
         <ToggleEditCancel

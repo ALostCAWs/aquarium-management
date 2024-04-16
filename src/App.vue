@@ -4,7 +4,8 @@ import AddItemModal from './components/AddItemModal.vue'
 import ToggleAddModal from './components/buttons/ToggleAddModal.vue'
 import Delete from './components/buttons/Delete.vue'
 import TankListContainer from './components/tank/TankListContainer.vue'
-import { sortTankArray } from './functions/sortData'
+import { sortParametersArray, sortTankArray } from './functions/sortData'
+import { checkObjectImagesEqual } from './functions/checkObjectEquality'
 </script>
 
 <template>
@@ -36,7 +37,7 @@ import { sortTankArray } from './functions/sortData'
         <TankListContainer
           :list="tanks"
           @onSelect="toggleSelectItem"
-          @onUpdate="updateItem"
+          @onUpdate="updateTank"
           @onUpdateVolume="updateVolume"
           @onUpdateCycle="updateCycle"
           @onUpdateFiltration="updateFiltration"
@@ -102,58 +103,94 @@ export default {
     updateVolume({ index, volume, unit }) {
       this.tanks[index].volume = volume;
       this.tanks[index].volume_unit = unit;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateCycle({ index, cycle }) {
       this.tanks[index].is_cycled = cycle;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateFiltration({ index, filtration }) {
       this.tanks[index].filtration = filtration;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateSubstrate({ index, substrate }) {
       this.tanks[index].substrate = substrate;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateTemperature({ index, temperature, unit }) {
       this.tanks[index].temperature_setting = temperature;
       this.tanks[index].temperature_unit = unit;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateLight({ index, light_settings }) {
       this.tanks[index].light_settings = light_settings;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateParameters({ index, parameters }) {
+      const timestamp = String(Date.now());
+      const oldParameters = this.tanks[index].parameters;
+
+      if (parameters.length = oldParameters.length) {
+        for (const [i, parameter] of parameters.entries()) {
+          if (!checkObjectImagesEqual(oldParameters[i], parameter)) {
+            parameter.timestamp = timestamp;
+          }
+        }
+      } else {
+        for (const [i, parameter] of parameters.entries()) {
+          if (!oldParameters.some(p => p.parameter === parameter.parameter)) {
+            parameter.timestamp = timestamp;
+          }
+        }
+      }
       this.tanks[index].parameters = parameters;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateTestSchedule({ index, parameters }) {
       this.tanks[index].test_schedule = parameters;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateWaterChange({ index, water_change }) {
+      water_change.timestamp = String(Date.now());
       this.tanks[index].recent_water_change = water_change;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateRecentProduct({ index, product }) {
+      product.timestamp = String(Date.now());
       this.tanks[index].recent_product = product;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateRecentSubstrateFert({ index, product }) {
+      product.timestamp = String(Date.now());
       this.tanks[index].recent_substrate_fertilizer = product;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateRecentWaterFert({ index, product }) {
+      product.timestamp = String(Date.now());
       this.tanks[index].recent_water_fertilizer = product;
-      this.updateItem(index);
+      this.updateTank(index);
     },
     updateAilments({ index, ailments }) {
+      const timestamp = String(Date.now());
+      const oldAilments = this.tanks[index].ailments;
+
+      if (ailments.length = oldAilments.length) {
+        for (const [i, parameter] of ailments.entries()) {
+          if (!checkObjectImagesEqual(oldAilments[i], parameter)) {
+            parameter.timestamp = timestamp;
+          }
+        }
+      } else {
+        for (const [i, parameter] of ailments.entries()) {
+          if (!oldAilments.some(p => p.parameter === parameter.parameter)) {
+            parameter.timestamp = timestamp;
+          }
+        }
+      }
       this.tanks[index].ailments = ailments;
-      this.updateItem(index);
+      this.updateTank(index);
     },
-    async updateItem(index) {
+    async updateTank(index) {
       const tank = this.tanks[index];
       const response = await fetch(`http://localhost:3000/tanks/`, {
         method: 'PUT',

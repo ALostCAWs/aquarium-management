@@ -41,10 +41,6 @@ import { timestampToDate } from '../../../functions/convertData'
           <input v-model.number="updatedProduct.dose"/>
           <input v-model="updatedProduct.unit"/>
         </div>
-        <div>
-          <p>Date:</p>
-          <input v-model="updatedProduct.timestamp"/>
-        </div>
       </div>
       <div class="property-controls">
         <ToggleEditCancel

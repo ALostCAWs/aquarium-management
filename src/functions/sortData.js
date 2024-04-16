@@ -20,4 +20,8 @@ export function sortSpeciesArray(a, b) {
   return returnSortNumber(a.species, b.species);
 }
 
+export function sortParametersArray(a, b) {
+  return returnSortNumber(a.parameter, b.parameter);
+}
+
 export default {sortGeneraArray, sortSpeciesArray};
