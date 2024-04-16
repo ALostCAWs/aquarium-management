@@ -154,6 +154,11 @@ export default {
   width: 25%;
 }
 
+.item select,
+.item input:has(~ select) {
+  width: 25%;
+}
+
 .item > div {
   margin-top: .75em;
 }

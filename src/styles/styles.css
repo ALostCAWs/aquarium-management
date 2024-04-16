@@ -56,7 +56,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6, p,
-input, button {
+input, select, button {
   font-weight: var(--main-font-wght);
   letter-spacing: .1em;
   color: var(--font-color);

@@ -1,6 +1,7 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import { temperatureUnit } from '../../../constants/unit';
 </script>
 
 <template>
@@ -21,7 +22,10 @@ import Update from '../../buttons/Update.vue';
       <div>
         <p>Temperature:</p>
         <input v-model.number="updatedTemperature"/>
-        <input v-model="updatedUnit"/>
+        <select v-model="updatedUnit">
+          <option></option>
+          <option v-for="unit in temperatureUnit" :value="unit">{{ unit }}</option>
+        </select>
       </div>
       <div class="property-controls">
         <ToggleEditCancel

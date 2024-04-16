@@ -247,7 +247,8 @@ h2:not(aside h2) {
   padding-bottom: 1em;
 }
 
-input {
+input,
+select {
   padding-left: .25em;
 
   border-bottom: 1px solid var(--accent-color);

@@ -101,7 +101,8 @@ p {
   border: thin solid var(--accent-color);
 }
 
-.list-tank div:first-of-type input {
+.list-tank div:first-of-type input,
+.list-tank div:first-of-type select {
   background-color: var(--overlay-color);
 }
 

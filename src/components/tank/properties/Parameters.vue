@@ -1,6 +1,7 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import { resultUnit } from '../../../constants/unit';
 import { timestampToDate } from '../../../functions/convertData'
 </script>
 
@@ -27,7 +28,10 @@ import { timestampToDate } from '../../../functions/convertData'
         <div v-for="(updatedParameter) in updatedParameters">
           <p>{{ updatedParameter.parameter }}</p>
           <input v-model.number="updatedParameter.result"/>
-          <input v-model="updatedParameter.result_unit"/>
+          <select v-model="updatedParameter.result_unit">
+            <option></option>
+            <option v-for="unit in resultUnit" :value="unit">{{ unit }}</option>
+          </select>
         </div>
       </div>
       <div class="property-controls">
