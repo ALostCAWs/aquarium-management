@@ -101,9 +101,15 @@ p {
   border: thin solid var(--accent-color);
 }
 
-.list-tank div:first-of-type input,
-.list-tank div:first-of-type select {
+.list-tank div:first-of-type input:not(:disabled),
+.list-tank div:first-of-type select:not(:disabled) {
   background-color: var(--overlay-color);
+}
+
+.list-tank div:first-of-type input:disabled,
+.list-tank div:first-of-type select:disabled {
+  background-color: var(--main-color-disabled);
+  color: var(--font-color-disabled);
 }
 
 .list-tank .details {

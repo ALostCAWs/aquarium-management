@@ -1,6 +1,8 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import Add from '../../buttons/Add.vue';
+import X from '../../buttons/X.vue';
 </script>
 
 <template>
@@ -20,14 +22,21 @@ import Update from '../../buttons/Update.vue';
       />
       </div>
     </div>
-    <div v-show="editActive">
-      <div>
+    <div v-show="editActive" class="addable-list">
+      <div class="property-input-container">
         <p>Test Schedule:</p>
-        <div v-for="(updatedParameter) in updatedParameters">
-          <p>{{ updatedParameter.parameter }}</p>
+        <div v-for="(updatedParameter, i) in updatedParameters">
+          <p v-if="i < parameterCount">{{ updatedParameter.parameter }}</p>
+          <input v-else v-model="updatedParameter.parameter"/>
           <input v-model.number="updatedParameter.frequency"/>
+          <X
+            @onRemove="remove(i)"
+          />
         </div>
       </div>
+      <Add
+        @onAdd="add"
+      />
       <div class="property-controls">
         <ToggleEditCancel
           @onToggleEdit="toggleEdit"
@@ -55,13 +64,26 @@ export default {
     update() {
       this.$emit('onUpdateTestSchedule', { index: this.index, parameters: this.updatedParameters });
       this.toggleEdit();
+    },
+    add() {
+      this.updatedParameters.push({
+        parameter: '',
+        frequency: ''
+      });
+    },
+    remove(index) {
+      this.updatedParameters.splice(index, 1);
     }
   },
   data() {
     return {
       editActive: false,
-      updatedParameters: this.parameters
+      updatedParameters: this.parameters,
+      parameterCount: 0
     }
+  },
+  created() {
+    this.parameterCount = this.updatedParameters.length;
   }
 }
 </script>

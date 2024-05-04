@@ -31,7 +31,7 @@ import { timestampToDate } from '../../../functions/convertData'
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container">
         <p>{{ property }}:</p>
         <div>
           <p>Name:</p>

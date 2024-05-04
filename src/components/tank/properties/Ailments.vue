@@ -1,6 +1,8 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import Add from '../../buttons/Add.vue';
+import X from '../../buttons/X.vue';
 </script>
 
 <template>
@@ -18,12 +20,20 @@ import Update from '../../buttons/Update.vue';
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container two-textbox">
         <p>Ailments:</p>
-        <div v-for="(updatedAilment) in updatedAilments">
+        <div v-for="(updatedAilment, i) in updatedAilments">
           <input v-model="updatedAilment.name"/>
+          <input v-model="updatedAilment.type"/>
+          <!-- <input v-model="updatedAilment.comments"/> -->
+          <X
+            @onRemove="remove(i)"
+          />
         </div>
       </div>
+      <Add
+        @onAdd="add"
+      />
       <div class="property-controls">
         <ToggleEditCancel
           @onToggleEdit="toggleEdit"
@@ -51,12 +61,22 @@ export default {
     update() {
       this.$emit('onUpdateAilments', { index: this.index, ailments: this.updatedAilments });
       this.toggleEdit();
+    },
+    add() {
+      this.updatedAilments.push({
+        name: '',
+        type: '',
+        comments: ''
+      });
+    },
+    remove(index) {
+      this.updatedAilments.splice(index, 1);
     }
   },
   data() {
     return {
       editActive: false,
-      updatedAilments: this.inhabitants
+      updatedAilments: this.ailments
     }
   }
 }
@@ -73,7 +93,7 @@ export default {
 }
 
 .list > div > div > div > input:not(:only-of-type) {
-  width: 50%;
+  /* width: 50%; */
   margin-top: .025em;
 }
 </style>

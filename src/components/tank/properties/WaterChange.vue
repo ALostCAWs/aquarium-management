@@ -30,7 +30,7 @@ import { timestampToDate } from '../../../functions/convertData'
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container">
         <p>Water Change:</p>
         <div>
           <p>Percentage:</p>

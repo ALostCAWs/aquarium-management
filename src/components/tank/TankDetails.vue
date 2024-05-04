@@ -150,13 +150,17 @@ export default {
   line-height: 1.5em;
 }
 
-.item input:not(:only-of-type) {
-  width: 25%;
+.list .addable-list input:only-of-type {
+  margin-left: 1.75em;
 }
 
 .item select,
-.item input:has(~ select) {
+.item input:has(+ select) {
   width: 25%;
+}
+
+.item .list input[type=checkbox] {
+  margin-right: 1em;
 }
 
 .item > div {
@@ -184,22 +188,28 @@ export default {
   margin-top: .4em;
 }
 
-.list > div > div > div:not(:has(input)) {
+.list > div > div > div:not(:has(input)),
+.property-input-container > div:not(:has(input)) {
   display: flex;
   flex-direction: row;
 }
 
-.list > div > div > div:has(input) {
+.property-input-container > div:has(input) {
   display: flex;
 }
 
-.list > div > div > div:has(input) p {
-  margin-left: 10%;
+.list > div > div > div:not(:has(input)) > p:first-of-type,
+.list .property-input-container > div p,
+.list .property-input-container > div input[type=text]:has(~ input):first-of-type {
   width: 40%;
+  margin-left: 10%;
 }
 
-.list > div > div > div:not(:has(input)) > p:first-of-type {
-  width: 40%;
+.addable-list > .two-textbox > div {
   margin-left: 10%;
+}
+
+.property-input-container.two-textbox > div > input:first-of-type {
+  width: 45%;
 }
 </style>

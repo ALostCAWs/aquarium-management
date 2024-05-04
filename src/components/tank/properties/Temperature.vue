@@ -19,7 +19,7 @@ import { temperatureUnit } from '../../../constants/unit';
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container">
         <p>Temperature:</p>
         <input v-model.number="updatedTemperature"/>
         <select v-model="updatedUnit">

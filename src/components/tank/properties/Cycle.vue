@@ -18,7 +18,7 @@ import Update from '../../buttons/Update.vue';
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container">
         <p>Cycled:</p>
         <input v-model="updatedCycle"/>
       </div>

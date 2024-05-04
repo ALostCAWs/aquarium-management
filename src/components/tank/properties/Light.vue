@@ -33,7 +33,7 @@ import Update from '../../buttons/Update.vue';
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container">
         <p>Light Settings:</p>
         <div>
           <p>Name:</p>

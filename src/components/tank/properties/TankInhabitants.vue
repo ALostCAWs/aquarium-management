@@ -1,6 +1,8 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import Add from '../../buttons/Add.vue';
+import X from '../../buttons/X.vue';
 </script>
 
 <template>
@@ -17,14 +19,20 @@ import Update from '../../buttons/Update.vue';
         />
       </div>
     </div>
-    <div v-show="editActive">
-      <div>
+    <div v-show="editActive" class="addable-list">
+      <div class="property-input-container two-textbox">
         <p>{{ property }}:</p>
-        <div v-for="(updatedInhabitant) in updatedInhabitants">
+        <div v-for="(updatedInhabitant, i) in updatedInhabitants">
           <input v-model="updatedInhabitant.genus"/>
           <input v-model="updatedInhabitant.species"/>
+          <X
+            @onRemove="remove(i)"
+          />
         </div>
       </div>
+      <Add
+          @onAdd="add"
+        />
       <div class="property-controls">
         <ToggleEditCancel
           @onToggleEdit="toggleEdit"
@@ -54,6 +62,15 @@ export default {
     update() {
       this.$emit(this.event, { index: this.index, inhabitants: this.updatedInhabitants });
       this.toggleEdit();
+    },
+    add() {
+      this.updatedInhabitants.push({
+        genus: '',
+        species: ''
+      });
+    },
+    remove(index) {
+      this.updatedInhabitants.splice(index, 1);
     }
   },
   data() {
@@ -70,13 +87,16 @@ export default {
   width: 100%;
 }
 
-.list > div > div > p:not(:first-of-type),
-.list > div > div > div {
+.list > div > div > p:not(:first-of-type) {
   margin-left: 10%;
 }
 
-.list > div > div > div > input:not(:only-of-type) {
-  width: 50%;
+.property-input-container > div > input:first-of-type {
+  width: 45%;
+}
+
+div > input:not(:only-of-type) {
+  /* width: 50%; */
   margin-top: .025em;
 }
 </style>

@@ -19,7 +19,7 @@ import { volumeUnit } from '../../../constants/unit';
       </div>
     </div>
     <div v-show="editActive">
-      <div>
+      <div class="property-input-container">
         <p>Volume:</p>
         <input v-model.number="updatedVolume"/>
         <select v-model="updatedUnit">

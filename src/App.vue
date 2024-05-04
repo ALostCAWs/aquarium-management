@@ -128,22 +128,23 @@ export default {
     },
     updateParameters({ index, parameters }) {
       const timestamp = String(Date.now());
-      const oldParameters = this.tanks[index].parameters;
 
-      if (parameters.length = oldParameters.length) {
-        for (const [i, parameter] of parameters.entries()) {
-          if (!checkObjectImagesEqual(oldParameters[i], parameter)) {
-            parameter.timestamp = timestamp;
-          }
+      const updatedParameters = [];
+      for (const parameter of parameters) {
+        let parameterTimestamp = parameter.timestamp
+        if (parameter.tested) {
+          parameterTimestamp = timestamp;
         }
-      } else {
-        for (const [i, parameter] of parameters.entries()) {
-          if (!oldParameters.some(p => p.parameter === parameter.parameter)) {
-            parameter.timestamp = timestamp;
-          }
-        }
+        updatedParameters.push({
+          parameter: parameter.parameter,
+          result: parameter.result,
+          result_unit: parameter.result_unit,
+          timestamp: parameterTimestamp
+        });
       }
-      this.tanks[index].parameters = parameters;
+      console.log(updatedParameters);
+      this.tanks[index].parameters = updatedParameters;
+      console.log(this.tanks[index]);
       this.updateTank(index);
     },
     updateTestSchedule({ index, parameters }) {
@@ -175,15 +176,15 @@ export default {
       const oldAilments = this.tanks[index].ailments;
 
       if (ailments.length = oldAilments.length) {
-        for (const [i, parameter] of ailments.entries()) {
-          if (!checkObjectImagesEqual(oldAilments[i], parameter)) {
-            parameter.timestamp = timestamp;
+        for (const [i, ailment] of ailments.entries()) {
+          if (!checkObjectImagesEqual(oldAilments[i], ailment)) {
+            ailment.timestamp = timestamp;
           }
         }
       } else {
-        for (const [i, parameter] of ailments.entries()) {
-          if (!oldAilments.some(p => p.parameter === parameter.parameter)) {
-            parameter.timestamp = timestamp;
+        for (const [i, ailment] of ailments.entries()) {
+          if (!oldAilments.some(a => a.name === ailment.name)) {
+            ailment.timestamp = timestamp;
           }
         }
       }
@@ -221,6 +222,11 @@ export default {
   async created() {
     await this.getAllTanks();
     console.log(this.tanks);
+
+    for (const tank of this.tanks) {
+      const parameters = tank.parameters.map(p => ({ ...p, tested: false }));
+      tank.parameters = parameters;
+    }
   },
   watch: {
     list: function (updatedList, previousList) {

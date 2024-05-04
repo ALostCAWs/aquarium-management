@@ -1,6 +1,8 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import Add from '../../buttons/Add.vue';
+import X from '../../buttons/X.vue';
 import { resultUnit } from '../../../constants/unit';
 import { timestampToDate } from '../../../functions/convertData'
 </script>
@@ -22,19 +24,33 @@ import { timestampToDate } from '../../../functions/convertData'
       />
       </div>
     </div>
-    <div v-show="editActive">
-      <div>
+    <div v-show="editActive" class="addable-list">
+      <div class="property-input-container">
         <p>Parameters:</p>
-        <div v-for="(updatedParameter) in updatedParameters">
-          <p>{{ updatedParameter.parameter }}</p>
-          <input v-model.number="updatedParameter.result"/>
-          <select v-model="updatedParameter.result_unit">
+        <div v-for="(updatedParameter, i) in updatedParameters">
+          <p v-if="i < parameterCount">{{ updatedParameter.parameter }}</p>
+          <input v-else v-model="updatedParameter.parameter" :disabled="!updatedParameter.tested"/>
+          <input type="checkbox" v-model="updatedParameter.tested" @click="toggleUpdateVisible"/>
+          <input v-model.number="updatedParameter.result" :disabled="!updatedParameter.tested"/>
+          <select v-model="updatedParameter.result_unit" :disabled="!updatedParameter.tested">
             <option></option>
             <option v-for="unit in resultUnit" :value="unit">{{ unit }}</option>
           </select>
+          <X
+            @onRemove="remove(i)"
+          />
         </div>
       </div>
-      <div class="property-controls">
+      <Add
+        @onAdd="add"
+      />
+      <div class="property-controls" v-show="updateVisible">
+        <ToggleEditCancel
+          @onToggleEdit="toggleEdit"
+          :editActive="editActive"
+        />
+      </div>
+      <div class="property-controls" v-show="!updateVisible">
         <ToggleEditCancel
           @onToggleEdit="toggleEdit"
           :editActive="editActive"
@@ -58,15 +74,31 @@ export default {
     toggleEdit() {
       this.editActive = !this.editActive;
     },
+    toggleUpdateVisible() {
+      this.updateVisible = this.updatedParameters.some(p => p.tested);
+    },
     update() {
       this.$emit('onUpdateParameters', { index: this.index, parameters: this.updatedParameters });
       this.toggleEdit();
+    },
+    add() {
+      this.updatedParameters.push({
+        parameter: '',
+        result: '',
+        result_unit: '',
+        timestamp: ''
+      });
+    },
+    remove(index) {
+      this.updatedParameters.splice(index, 1);
     }
   },
   data() {
     return {
       editActive: false,
-      updatedParameters: []
+      updateVisible: false,
+      updatedParameters: [],
+      parameterCount: 0
     }
   },
   created() {
@@ -74,6 +106,7 @@ export default {
       const copyParameter = structuredClone(parameter);
       this.updatedParameters.push(copyParameter);
     }
+    this.parameterCount = this.updatedParameters.length;
   }
 }
 </script>
