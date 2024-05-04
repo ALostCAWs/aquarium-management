@@ -68,6 +68,7 @@ import Ailments from './properties/Ailments.vue'
       :property="'Recent Product'"
       :event="'onUpdateRecentProduct'"
       :product="tank.recent_product"
+      :products="products.allProducts"
     />
     <Product
       v-on="$listeners"
@@ -75,6 +76,7 @@ import Ailments from './properties/Ailments.vue'
       :property="'Recent Water Fert.'"
       :event="'onUpdateRecentWaterFert'"
       :product="tank.recent_water_fertilizer"
+      :products="products.waterFertProducts"
     />
     <Product
       v-on="$listeners"
@@ -82,6 +84,7 @@ import Ailments from './properties/Ailments.vue'
       :property="'Recent Substrate Fert.'"
       :event="'onUpdateRecentSubstrateFert'"
       :product="tank.recent_substrate_fertilizer"
+      :products="products.substrateFertProducts"
     />
     <!--<div class="list">
       <p>Test Schedule:</p>
@@ -130,7 +133,13 @@ export default {
   },
   props: {
     index: { required: true },
-    tank: { required: true }
+    tank: { required: true },
+    products: { required: true }
+  },
+  data() {
+    return {
+      fertilizers: []
+    };
   }
 }
 </script>
@@ -145,7 +154,8 @@ export default {
 }
 
 .item p,
-.item input {
+.item input,
+.item select {
   width: 50%;
   line-height: 1.5em;
 }
@@ -154,9 +164,10 @@ export default {
   margin-left: 1.75em;
 }
 
-.item select,
+.item input + select,
 .item input:has(+ select) {
   width: 25%;
+  background-color: aqua;
 }
 
 .item .list input[type=checkbox] {

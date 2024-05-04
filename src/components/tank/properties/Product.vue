@@ -11,8 +11,8 @@ import { timestampToDate } from '../../../functions/convertData'
       <div>
         <p>{{ property }}:</p>
         <div>
-          <p>Name:</p>
-          <p>{{ product.name }}</p>
+          <p>Product:</p>
+          <p>{{ product.product }}</p>
         </div>
         <div>
           <p>Dose:</p>
@@ -34,8 +34,11 @@ import { timestampToDate } from '../../../functions/convertData'
       <div class="property-input-container">
         <p>{{ property }}:</p>
         <div>
-          <p>Name:</p>
-          <input v-model="updatedProduct.name"/>
+          <p>Product:</p>
+          <select v-model="updatedProduct.product">
+            <option></option>
+            <option v-for="product in products" :value="product.product">{{ product.product }}</option>
+          </select>
         </div>
         <div>
           <p>Dose:</p>
@@ -66,7 +69,8 @@ export default {
     index: { required: true },
     property: { required: true },
     event: { required: true },
-    product: { required: true }
+    product: { required: true },
+    products: { required: true }
   },
   methods: {
     toggleEdit() {

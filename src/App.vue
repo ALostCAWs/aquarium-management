@@ -35,7 +35,8 @@ import { checkObjectImagesEqual } from './functions/checkObjectEquality'
           />
         </div>
         <TankListContainer
-          :list="tanks"
+          :tanks="tanks"
+          :products="products"
           @onSelect="toggleSelectItem"
           @onUpdate="updateTank"
           @onUpdateVolume="updateVolume"
@@ -82,17 +83,6 @@ export default {
         this.itemSelected = true;
       } else {
         this.itemSelected = this.tanks.filter((item) => { return item.selected }).length > 0;
-      }
-    },
-    async getAllTanks() {
-      try {
-        const response = await fetch('http://localhost:3000/tanks/');
-        const allTanks = await response.json();
-        const allTanksUnselected = allTanks.map(t => ({ ...t, selected: false }));
-        allTanksUnselected.sort(sortTankArray);
-        this.tanks = allTanksUnselected;
-      } catch (e) {
-        console.error(e);
       }
     },
     createItem(item) {
@@ -210,18 +200,54 @@ export default {
     },
     saveList() {
       //
-    }
+    },
+    async getAllTanks() {
+      try {
+        const response = await fetch('http://localhost:3000/tanks/');
+        const allTanks = await response.json();
+        const allTanksUnselected = allTanks.map(t => ({ ...t, selected: false }));
+        allTanksUnselected.sort(sortTankArray);
+        this.tanks = allTanksUnselected;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async getAllProducts() {
+      try {
+        const response_all = await fetch('http://localhost:3000/products/');
+        const allProducts = await response_all.json();
+
+        const response_waterFert = await fetch('http://localhost:3000/products/type/water column fertilizer');
+        const waterFertProducts = await response_waterFert.json();
+
+        const response_substrateFert = await fetch('http://localhost:3000/products/type/substrate fertilizer');
+        const substrateFertProducts = await response_substrateFert.json();
+
+        this.products.allProducts = allProducts;
+        this.products.waterFertProducts = waterFertProducts;
+        this.products.substrateFertProducts = substrateFertProducts;
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
   data() {
     return {
       modalActive: false,
       itemSelected: false,
-      tanks: []
+      tanks: [],
+      products: {
+        allProducts: [],
+        waterFertProducts: [],
+        substrateFertProducts: []
+      }
     };
   },
   async created() {
     await this.getAllTanks();
+    await this.getAllProducts();
     console.log(this.tanks);
+    console.log(this.products);
 
     for (const tank of this.tanks) {
       const parameters = tank.parameters.map(p => ({ ...p, tested: false }));

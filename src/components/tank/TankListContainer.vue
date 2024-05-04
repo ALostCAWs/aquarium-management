@@ -5,10 +5,11 @@ import Tank from './Tank.vue'
 <template>
   <div class="list-item-container">
     <Tank
-      v-for="(item, index) in list"
+      v-for="(tank, index) in tanks"
       :key="index"
       :index="index"
-      :tank="item"
+      :tank="tank"
+      :products="products"
       v-on="$listeners"
     />
   </div>
@@ -21,7 +22,8 @@ export default {
     Tank
   },
   props: {
-    list: { required: true }
+    tanks: { required: true },
+    products: { required: true }
   },
   data() {
     return {
