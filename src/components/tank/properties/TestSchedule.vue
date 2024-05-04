@@ -3,6 +3,7 @@ import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
 import Add from '../../buttons/Add.vue';
 import X from '../../buttons/X.vue';
+import { validateIntegerInput } from '../../../functions/validateInput';
 </script>
 
 <template>
@@ -62,6 +63,11 @@ export default {
       this.editActive = !this.editActive;
     },
     update() {
+      for (const parameter of this.updatedParameters) {
+        if (!validateIntegerInput(parameter.frequency)) {
+          return;
+        }
+      }
       this.$emit('onUpdateTestSchedule', { index: this.index, parameters: this.updatedParameters });
       this.toggleEdit();
     },
@@ -78,7 +84,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedParameters: this.parameters,
+      updatedParameters: structuredClone(this.parameters),
       parameterCount: 0
     }
   },

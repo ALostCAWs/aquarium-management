@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedCycle: this.cycled
+      updatedCycle: structuredClone(this.cycled)
     }
   }
 }

@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedFiltration: this.filtration
+      updatedFiltration: structuredClone(this.filtration)
     }
   }
 }

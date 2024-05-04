@@ -2,6 +2,7 @@
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
 import { temperatureUnit } from '../../../constants/unit';
+import { validateDecimalInput } from '../../../functions/validateInput';
 </script>
 
 <template>
@@ -53,15 +54,18 @@ export default {
       this.editActive = !this.editActive;
     },
     update() {
-      this.$emit('onUpdateTemperature', { index: this.index, temperature: this.updatedTemperature, unit: updatedUnit });
+      if (!validateDecimalInput(this.updatedTemperature)) {
+        return;
+      }
+      this.$emit('onUpdateTemperature', { index: this.index, temperature: this.updatedTemperature, unit: this.updatedUnit });
       this.toggleEdit();
     }
   },
   data() {
     return {
       editActive: false,
-      updatedTemperature: this.temperature,
-      updatedUnit: this.unit
+      updatedTemperature: structuredClone(this.temperature),
+      updatedUnit: structuredClone(this.unit)
     }
   }
 }

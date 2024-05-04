@@ -1,6 +1,7 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import { validateDecimalInput } from '../../../functions/validateInput';
 import { volumeUnit } from '../../../constants/unit';
 </script>
 
@@ -53,6 +54,9 @@ export default {
       this.editActive = !this.editActive;
     },
     update() {
+      if (!validateDecimalInput(this.updatedVolume)) {
+        return;
+      }
       this.$emit('onUpdateVolume', { index: this.index, volume: this.updatedVolume, unit: this.updatedUnit });
       this.toggleEdit();
     }
@@ -60,8 +64,8 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedVolume: this.volume,
-      updatedUnit: this.unit
+      updatedVolume: structuredClone(this.volume),
+      updatedUnit: structuredClone(this.unit)
     }
   }
 }

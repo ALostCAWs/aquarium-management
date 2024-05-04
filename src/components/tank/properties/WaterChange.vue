@@ -2,6 +2,7 @@
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue'
 import Update from '../../buttons/Update.vue'
 import { timestampToDate } from '../../../functions/convertData'
+import { validateDecimalInput } from '../../../functions/validateInput'
 </script>
 
 <template>
@@ -34,7 +35,7 @@ import { timestampToDate } from '../../../functions/convertData'
         <p>Water Change:</p>
         <div>
           <p>Percentage:</p>
-          <input v-model.number="updatedWaterChange.percentage"/>
+          <input :value="updatedWaterChange.percentage"/>
         </div>
         <div>
           <p>Water Type:</p>
@@ -66,6 +67,10 @@ export default {
       this.editActive = !this.editActive;
     },
     update() {
+      if (!validateDecimalInput(this.updatedWaterChange.percentage)) {
+        console.log('e');
+        return;
+      }
       this.$emit('onUpdateWaterChange', { index: this.index, water_change: this.updatedWaterChange });
       this.toggleEdit();
     }
@@ -73,7 +78,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedWaterChange: this.water_change
+      updatedWaterChange: structuredClone(this.water_change)
     }
   }
 }

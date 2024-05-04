@@ -5,6 +5,7 @@ import Add from '../../buttons/Add.vue';
 import X from '../../buttons/X.vue';
 import { resultUnit } from '../../../constants/unit';
 import { timestampToDate } from '../../../functions/convertData'
+import { validateDecimalInput } from '../../../functions/validateInput';
 </script>
 
 <template>
@@ -30,7 +31,7 @@ import { timestampToDate } from '../../../functions/convertData'
         <div v-for="(updatedParameter, i) in updatedParameters">
           <p v-if="i < parameterCount">{{ updatedParameter.parameter }}</p>
           <input v-else v-model="updatedParameter.parameter" :disabled="!updatedParameter.tested"/>
-          <input type="checkbox" v-model="updatedParameter.tested" @click="toggleUpdateVisible"/>
+          <input type="checkbox" v-model="updatedParameter.tested" @change="toggleUpdateVisible"/>
           <input v-model.number="updatedParameter.result" :disabled="!updatedParameter.tested"/>
           <select v-model="updatedParameter.result_unit" :disabled="!updatedParameter.tested">
             <option></option>
@@ -44,13 +45,13 @@ import { timestampToDate } from '../../../functions/convertData'
       <Add
         @onAdd="add"
       />
-      <div class="property-controls" v-show="updateVisible">
+      <div class="property-controls" v-show="!updateVisible">
         <ToggleEditCancel
           @onToggleEdit="toggleEdit"
           :editActive="editActive"
         />
       </div>
-      <div class="property-controls" v-show="!updateVisible">
+      <div class="property-controls" v-show="updateVisible">
         <ToggleEditCancel
           @onToggleEdit="toggleEdit"
           :editActive="editActive"
@@ -76,8 +77,14 @@ export default {
     },
     toggleUpdateVisible() {
       this.updateVisible = this.updatedParameters.some(p => p.tested);
+      console.log(this.updateVisible);
     },
     update() {
+      for (const parameter of this.updatedParameters) {
+        if (!validateDecimalInput(parameter.result)) {
+          return;
+        }
+      }
       this.$emit('onUpdateParameters', { index: this.index, parameters: this.updatedParameters });
       this.toggleEdit();
     },
@@ -97,15 +104,11 @@ export default {
     return {
       editActive: false,
       updateVisible: false,
-      updatedParameters: [],
+      updatedParameters: structuredClone(this.parameters),
       parameterCount: 0
     }
   },
   created() {
-    for (const [i, parameter] of this.parameters.entries()) {
-      const copyParameter = structuredClone(parameter);
-      this.updatedParameters.push(copyParameter);
-    }
     this.parameterCount = this.updatedParameters.length;
   }
 }

@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedInhabitants: this.inhabitants
+      updatedInhabitants: structuredClone(this.inhabitants)
     }
   }
 }

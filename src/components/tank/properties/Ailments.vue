@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedAilments: this.ailments
+      updatedAilments: structuredClone(this.ailments)
     }
   }
 }

@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedSubstrate: this.substrate
+      updatedSubstrate: structuredClone(this.substrate)
     }
   }
 }

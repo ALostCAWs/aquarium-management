@@ -3,6 +3,7 @@ import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue'
 import Update from '../../buttons/Update.vue'
 import { doseUnit } from '../../../constants/unit'
 import { timestampToDate } from '../../../functions/convertData'
+import { validateDecimalInput } from '../../../functions/validateInput'
 </script>
 
 <template>
@@ -77,6 +78,9 @@ export default {
       this.editActive = !this.editActive;
     },
     update() {
+      if (!validateDecimalInput(this.updatedProduct.dose)) {
+        return;
+      }
       this.$emit(this.event, { index: this.index, product: this.updatedProduct });
       this.toggleEdit();
     }
@@ -84,7 +88,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedProduct: this.product
+      updatedProduct: structuredClone(this.product)
     }
   }
 }

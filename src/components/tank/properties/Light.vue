@@ -1,6 +1,7 @@
 <script setup>
 import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
+import { validateIntegerInput, validateDecimalInput } from '../../../functions/validateInput';
 </script>
 
 <template>
@@ -77,6 +78,12 @@ export default {
       this.editActive = !this.editActive;
     },
     update() {
+      if (!validateDecimalInput(this.updatedLight.hours_on)) {
+        return;
+      }
+      if (!validateIntegerInput(this.updatedLight.percentage)) {
+        return;
+      }
       this.$emit('onUpdateLight', { index: this.index, light_settings: this.updatedLight });
       this.toggleEdit();
     }
@@ -84,7 +91,7 @@ export default {
   data() {
     return {
       editActive: false,
-      updatedLight: this.light_settings
+      updatedLight: structuredClone(this.light_settings)
     }
   }
 }
