@@ -15,8 +15,8 @@ import { sortSpeciesArray } from '../../functions/sortData';
         </button>
       </div>
       <div v-else>
-        <button v-for="(item, index) in species">
-          <p>{{ toTitleCase(item.species) }}</p>
+        <button v-for="(item, i) in species">
+          <p key:="i">{{ toTitleCase(item.species) }}</p>
         </button>
       </div>
     </div>
@@ -33,12 +33,12 @@ export default {
   methods: {
     async toggleDetails() {
       if (!this.speciesLoaded) {
-        await this.getAllPlantSpeciesInGenus();
+        await this.getAllSpeciesInGenus();
         this.speciesLoaded = this.species.length;
       }
       this.expandActive = !this.expandActive;
     },
-    async getAllPlantSpeciesInGenus() {
+    async getAllSpeciesInGenus() {
       try {
         const response = await fetch(`http://localhost:3000/${this.group}/${this.genus}/species`);
         this.species = await response.json();

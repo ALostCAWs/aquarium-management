@@ -14,8 +14,8 @@ import { validateDecimalInput } from '../../../functions/validateInput';
       <div>
         <p>Parameters:</p>
         <div v-for="(parameter) in parameters">
-          <p>{{ parameter.parameter }} {{ parameter.result }}{{ parameter.result_unit }}</p>
-          <p>{{ timestampToDate(parameter.timestamp) }}</p>
+          <p :key="parameter.parameter">{{ parameter.parameter }} {{ parameter.result }}{{ parameter.result_unit }}</p>
+          <p :key="parameter.timestamp">{{ timestampToDate(parameter.timestamp) }}</p>
         </div>
       </div>
       <div class="property-controls">

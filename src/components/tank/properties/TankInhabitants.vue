@@ -3,6 +3,7 @@ import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
 import Add from '../../buttons/Add.vue';
 import X from '../../buttons/X.vue';
+import { livestockGenera, livestockSpecies, plantGenera, plantSpecies } from '../../../constants/tankInhabitants';
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import X from '../../buttons/X.vue';
     <div v-show="!editActive">
       <div>
         <p>{{ property }}:</p>
-        <p v-for="(inhabitant) in inhabitants">{{ inhabitant.genus }} {{ inhabitant.species }}</p>
+        <p v-for="(inhabitant) in inhabitants" :key="`${inhabitant.genus} ${inhabitant.species}`">{{ inhabitant.genus }} {{ inhabitant.species }}</p>
       </div>
       <div class="property-controls">
         <ToggleEditCancel
@@ -20,11 +21,33 @@ import X from '../../buttons/X.vue';
       </div>
     </div>
     <div v-show="editActive" class="addable-list">
-      <div class="property-input-container two-textbox">
+      <div v-if="property === 'Livestock'" class="property-input-container two-textbox">
         <p>{{ property }}:</p>
-        <div v-for="(updatedInhabitant, i) in updatedInhabitants">
-          <input v-model="updatedInhabitant.genus"/>
-          <input v-model="updatedInhabitant.species"/>
+        <div v-for="(updatedInhabitant, i) in updatedInhabitants" :key="`livestock-${i}`">
+          <select v-model="updatedInhabitant.genus">
+            <option></option>
+            <option v-for="g in livestockGenera" :value="g" :key="`livestock-${g}`">{{ g }}</option>
+          </select>
+          <select v-model="updatedInhabitant.species">
+            <option></option>
+            <option v-for="s in livestockSpecies.get(updatedInhabitant.genus)" :value="`livestock-${s}`" :key="s">{{ s }}</option>
+          </select>
+          <X
+            @onRemove="remove(i)"
+          />
+        </div>
+      </div>
+      <div v-if="property === 'Plants'" class="property-input-container two-textbox">
+        <p>{{ property }}:</p>
+        <div v-for="(updatedInhabitant, i) in updatedInhabitants" :key="`plant-${i}`">
+          <select v-model="updatedInhabitant.genus">
+            <option></option>
+            <option v-for="g in plantGenera" :value="g" :key="`plant-${g}`">{{ g }}</option>
+          </select>
+          <select v-model="updatedInhabitant.species">
+            <option></option>
+            <option v-for="s in plantSpecies.get(updatedInhabitant.genus)" :value="s" :key="`plant-${s}`">{{ s }}</option>
+          </select>
           <X
             @onRemove="remove(i)"
           />
@@ -49,6 +72,12 @@ import X from '../../buttons/X.vue';
 <script>
 export default {
   name: 'TankInhabitants',
+  components: {
+    ToggleEditCancel,
+    Update,
+    Add,
+    X
+  },
   props: {
     index: { required: true },
     property: { required: true },

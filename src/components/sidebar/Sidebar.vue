@@ -13,7 +13,8 @@ import { sortGeneraArray } from '../../functions/sortData'
       </button>
     </div>
     <div v-else>
-      <SidebarList v-for="(item, index) in genera"
+      <SidebarList v-for="(item, i) in genera"
+        :key="i"
         :group="group"
         :genus="item.genus"
       />

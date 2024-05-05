@@ -6,6 +6,7 @@ import Delete from './components/buttons/Delete.vue'
 import TankListContainer from './components/tank/TankListContainer.vue'
 import { sortParametersArray, sortTankArray } from './functions/sortData'
 import { checkObjectImagesEqual } from './functions/checkObjectEquality'
+import { populateInhabitantGenusSpeciesMap } from './constants/tankInhabitants'
 </script>
 
 <template>
@@ -244,6 +245,7 @@ export default {
     };
   },
   async created() {
+    await populateInhabitantGenusSpeciesMap();
     await this.getAllTanks();
     await this.getAllProducts();
     console.log(this.tanks);
