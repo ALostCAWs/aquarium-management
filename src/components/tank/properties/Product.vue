@@ -37,7 +37,7 @@ import { validateDecimalInput } from '../../../functions/validateInput'
         <div>
           <p>Product:</p>
           <select v-model="updatedProduct.product">
-            <option></option>
+            <option :value="``"></option>
             <option v-for="(p, i) in products" :value="p.product" :key="`product-option-${i}`">{{ p.product }}</option>
           </select>
         </div>
@@ -45,7 +45,7 @@ import { validateDecimalInput } from '../../../functions/validateInput'
           <p>Dose:</p>
           <input v-model.number="updatedProduct.dose"/>
           <select v-model="updatedProduct.unit">
-            <option></option>
+            <option :value="``"></option>
             <option v-for="(u, i) in doseUnit" :value="u" :key="`product-unit-${i}`">{{ u }}</option>
           </select>
         </div>

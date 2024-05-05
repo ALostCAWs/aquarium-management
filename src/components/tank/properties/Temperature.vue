@@ -24,7 +24,7 @@ import { validateDecimalInput } from '../../../functions/validateInput';
         <p>Temperature:</p>
         <input v-model.number="updatedTemperature"/>
         <select v-model="updatedUnit">
-          <option></option>
+          <option :value="``"></option>
           <option v-for="(u, i) in temperatureUnit" :value="u" :key="`temperature-unit-option-${i}`">{{ u }}</option>
         </select>
       </div>

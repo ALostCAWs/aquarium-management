@@ -34,7 +34,7 @@ import { validateDecimalInput } from '../../../functions/validateInput';
           <input type="checkbox" v-model="updatedParameter.tested" @change="toggleUpdateVisible"/>
           <input v-model.number="updatedParameter.result" :disabled="!updatedParameter.tested"/>
           <select v-model="updatedParameter.result_unit" :disabled="!updatedParameter.tested">
-            <option></option>
+            <option :value="``"></option>
             <option v-for="(unit, i) in resultUnit" :value="unit" :key="`parameter-unit-${i}`">{{ unit }}</option>
           </select>
           <X

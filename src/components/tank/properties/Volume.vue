@@ -24,7 +24,7 @@ import { volumeUnit } from '../../../constants/unit';
         <p>Volume:</p>
         <input v-model.number="updatedVolume"/>
         <select v-model="updatedUnit">
-          <option></option>
+          <option :value="``"></option>
           <option v-for="(u, i) in volumeUnit" :value="u" :key="`volume-unit-option-${i}`">{{ u }}</option>
         </select>
       </div>
