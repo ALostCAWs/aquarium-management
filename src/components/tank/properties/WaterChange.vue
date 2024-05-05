@@ -58,6 +58,10 @@ import { validateDecimalInput } from '../../../functions/validateInput'
 <script>
 export default {
   name: 'WaterChange',
+  comments: {
+    ToggleEditCancel,
+    Update
+  },
   props: {
     index: { required: true },
     water_change: { required: true }

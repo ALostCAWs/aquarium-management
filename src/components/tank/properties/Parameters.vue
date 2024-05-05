@@ -13,9 +13,9 @@ import { validateDecimalInput } from '../../../functions/validateInput';
     <div v-show="!editActive">
       <div>
         <p>Parameters:</p>
-        <div v-for="(parameter) in parameters">
-          <p :key="parameter.parameter">{{ parameter.parameter }} {{ parameter.result }}{{ parameter.result_unit }}</p>
-          <p :key="parameter.timestamp">{{ timestampToDate(parameter.timestamp) }}</p>
+        <div v-for="(parameter, i) in parameters" :key="`parameter-${i}`">
+          <p>{{ parameter.parameter }} {{ parameter.result }}{{ parameter.result_unit }}</p>
+          <p>{{ timestampToDate(parameter.timestamp) }}</p>
         </div>
       </div>
       <div class="property-controls">
@@ -28,14 +28,14 @@ import { validateDecimalInput } from '../../../functions/validateInput';
     <div v-show="editActive" class="addable-list">
       <div class="property-input-container">
         <p>Parameters:</p>
-        <div v-for="(updatedParameter, i) in updatedParameters">
+        <div v-for="(updatedParameter, i) in updatedParameters" :key="`edit-parameter-${i}`">
           <p v-if="i < parameterCount">{{ updatedParameter.parameter }}</p>
           <input v-else v-model="updatedParameter.parameter" :disabled="!updatedParameter.tested"/>
           <input type="checkbox" v-model="updatedParameter.tested" @change="toggleUpdateVisible"/>
           <input v-model.number="updatedParameter.result" :disabled="!updatedParameter.tested"/>
           <select v-model="updatedParameter.result_unit" :disabled="!updatedParameter.tested">
             <option></option>
-            <option v-for="unit in resultUnit" :value="unit">{{ unit }}</option>
+            <option v-for="(unit, i) in resultUnit" :value="unit" :key="`parameter-unit-${i}`">{{ unit }}</option>
           </select>
           <X
             @onRemove="remove(i)"
@@ -70,6 +70,12 @@ export default {
   props: {
     index: { required: true },
     parameters: { required: true }
+  },
+  comments: {
+    ToggleEditCancel,
+    Update,
+    Add,
+    X
   },
   methods: {
     toggleEdit() {

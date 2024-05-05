@@ -1,10 +1,10 @@
 <script setup>
-import Sidebar from './components/sidebar/Sidebar.vue'
-import AddItemModal from './components/AddItemModal.vue'
-import ToggleAddModal from './components/buttons/ToggleAddModal.vue'
-import Delete from './components/buttons/Delete.vue'
 import TankListContainer from './components/tank/TankListContainer.vue'
-import { sortParametersArray, sortTankArray } from './functions/sortData'
+import Sidebar from './components/sidebar/Sidebar.vue'
+import ToggleAddModal from './components/buttons/ToggleAddModal.vue'
+import AddItemModal from './components/AddItemModal.vue'
+import Delete from './components/buttons/Delete.vue'
+import { sortTankArray } from './functions/sortData'
 import { checkObjectImagesEqual } from './functions/checkObjectEquality'
 import { populateInhabitantGenusSpeciesMap } from './constants/tankInhabitants'
 </script>
@@ -68,11 +68,11 @@ import { populateInhabitantGenusSpeciesMap } from './constants/tankInhabitants'
 export default {
   name: 'App',
   components: {
-    AddItemModal,
-    ToggleAddModal,
-    Delete,
+    TankListContainer,
     Sidebar,
-    TankListContainer
+    ToggleAddModal,
+    AddItemModal,
+    Delete
   },
   methods: {
     toggleModal() {

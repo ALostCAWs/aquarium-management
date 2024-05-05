@@ -42,6 +42,10 @@ export default {
     index: { required: true },
     substrate: { required: true }
   },
+  comments: {
+    ToggleEditCancel,
+    Update
+  },
   methods: {
     toggleEdit() {
       this.editActive = !this.editActive;

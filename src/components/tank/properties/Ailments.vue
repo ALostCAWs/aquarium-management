@@ -10,7 +10,7 @@ import X from '../../buttons/X.vue';
     <div v-show="!editActive">
       <div>
         <p>Ailments:</p>
-        <p v-for="(ailment) in ailments" :key="ailment">{{ ailment.name }} ({{ ailment.type }})</p>
+        <p v-for="(ailment, i) in ailments" :key="`ailment-${i}`">{{ ailment.name }} ({{ ailment.type }})</p>
       </div>
       <div class="property-controls">
         <ToggleEditCancel
@@ -22,9 +22,9 @@ import X from '../../buttons/X.vue';
     <div v-show="editActive">
       <div class="property-input-container two-textbox">
         <p>Ailments:</p>
-        <div v-for="(updatedAilment, i) in updatedAilments">
-          <input :key="updatedAilment.name" v-model="updatedAilment.name"/>
-          <input :key="updatedAilment.type" v-model="updatedAilment.type"/>
+        <div v-for="(updatedAilment, i) in updatedAilments" :key="`edit-ailment-${i}`">
+          <input v-model="updatedAilment.name"/>
+          <input v-model="updatedAilment.type"/>
           <!-- <input v-model="updatedAilment.comments"/> -->
           <X
             @onRemove="remove(i)"
@@ -53,6 +53,10 @@ export default {
   props: {
     index: { required: true },
     ailments: { required: true }
+  },
+  comments: {
+    ToggleEditCancel,
+    Update
   },
   methods: {
     toggleEdit() {

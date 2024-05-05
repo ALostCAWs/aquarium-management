@@ -11,9 +11,9 @@ import { validateIntegerInput } from '../../../functions/validateInput';
     <div v-show="!editActive">
       <div>
         <p>Test Schedule:</p>
-        <div v-for="(parameter) in parameters">
-          <p>{{ parameter.parameter }}</p>
-          <p>Every {{ parameter.frequency }} days</p>
+        <div v-for="(p) in parameters" :key="`test-${i}`">
+          <p>{{ p.parameter }}</p>
+          <p>Every {{ p.frequency }} days</p>
         </div>
       </div>
       <div class="property-controls">
@@ -26,7 +26,7 @@ import { validateIntegerInput } from '../../../functions/validateInput';
     <div v-show="editActive" class="addable-list">
       <div class="property-input-container">
         <p>Test Schedule:</p>
-        <div v-for="(updatedParameter, i) in updatedParameters">
+        <div v-for="(updatedParameter, i) in updatedParameters" :key="`edit-test-${i}`">
           <p v-if="i < parameterCount">{{ updatedParameter.parameter }}</p>
           <input v-else v-model="updatedParameter.parameter"/>
           <input v-model.number="updatedParameter.frequency"/>
@@ -57,6 +57,12 @@ export default {
   props: {
     index: { required: true },
     parameters: { required: true }
+  },
+  comments: {
+    ToggleEditCancel,
+    Update,
+    Add,
+    X
   },
   methods: {
     toggleEdit() {

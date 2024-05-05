@@ -42,6 +42,10 @@ export default {
     index: { required: true },
     filtration: { required: true }
   },
+  comments: {
+    ToggleEditCancel,
+    Update
+  },
   methods: {
     toggleEdit() {
       this.editActive = !this.editActive;

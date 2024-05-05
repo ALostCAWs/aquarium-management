@@ -6,7 +6,7 @@ import Tank from './Tank.vue'
   <div class="list-item-container">
     <Tank
       v-for="(tank, i) in tanks"
-      :key="i"
+      :key="`tank-${i}`"
       :index="i"
       :tank="tank"
       :products="products"

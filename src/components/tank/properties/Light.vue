@@ -73,6 +73,10 @@ export default {
     index: { required: true },
     light_settings: { required: true }
   },
+  comments: {
+    ToggleEditCancel,
+    Update
+  },
   methods: {
     toggleEdit() {
       this.editActive = !this.editActive;

@@ -15,8 +15,8 @@ import { sortSpeciesArray } from '../../functions/sortData';
         </button>
       </div>
       <div v-else>
-        <button v-for="(item, i) in species">
-          <p key:="i">{{ toTitleCase(item.species) }}</p>
+        <button v-for="(s, i) in species">
+          <p :key="`sidebar-${s}-${i}`">{{ toTitleCase(s.species) }}</p>
         </button>
       </div>
     </div>

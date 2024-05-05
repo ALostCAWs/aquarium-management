@@ -14,7 +14,7 @@ import { sortGeneraArray } from '../../functions/sortData'
     </div>
     <div v-else>
       <SidebarList v-for="(item, i) in genera"
-        :key="i"
+        :key="`sidebar-${group}-${i}`"
         :group="group"
         :genus="item.genus"
       />

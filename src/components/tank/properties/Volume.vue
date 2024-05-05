@@ -25,7 +25,7 @@ import { volumeUnit } from '../../../constants/unit';
         <input v-model.number="updatedVolume"/>
         <select v-model="updatedUnit">
           <option></option>
-          <option v-for="unit in volumeUnit" :value="unit">{{ unit }}</option>
+          <option v-for="(u, i) in volumeUnit" :value="u" :key="`volume-unit-option-${i}`">{{ u }}</option>
         </select>
       </div>
       <div class="property-controls">
@@ -48,6 +48,10 @@ export default {
     index: { required: true },
     volume: { required: true },
     unit: { required: true }
+  },
+  comments: {
+    ToggleEditCancel,
+    Update
   },
   methods: {
     toggleEdit() {

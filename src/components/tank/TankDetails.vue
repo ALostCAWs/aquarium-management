@@ -86,13 +86,6 @@ import Ailments from './properties/Ailments.vue'
       :product="tank.recent_substrate_fertilizer"
       :products="products.substrateFertProducts"
     />
-    <!--<div class="list">
-      <p>Test Schedule:</p>
-      <div v-for="(parameter) in tank.test_schedule">
-        <p>{{ parameter.parameter }}</p>
-        <p>Every {{ parameter.frequency }} days</p>
-      </div>
-    </div>-->
     <TankInhabitants
       v-on="$listeners"
       :index="index"
@@ -121,6 +114,7 @@ export default {
   comments: {
     Volume,
     Cycle,
+    Filtration,
     Substrate,
     Temperature,
     Light,

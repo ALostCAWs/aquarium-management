@@ -25,7 +25,7 @@ import { validateDecimalInput } from '../../../functions/validateInput';
         <input v-model.number="updatedTemperature"/>
         <select v-model="updatedUnit">
           <option></option>
-          <option v-for="unit in temperatureUnit" :value="unit">{{ unit }}</option>
+          <option v-for="(u, i) in temperatureUnit" :value="u" :key="`temperature-unit-option-${i}`">{{ u }}</option>
         </select>
       </div>
       <div class="property-controls">
@@ -48,6 +48,10 @@ export default {
     index: { required: true },
     temperature: { required: true },
     unit: { required: true }
+  },
+  comments: {
+    ToggleEditCancel,
+    Update
   },
   methods: {
     toggleEdit() {
