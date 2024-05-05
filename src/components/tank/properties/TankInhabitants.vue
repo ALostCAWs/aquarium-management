@@ -24,12 +24,12 @@ import { LIVESTOCK_GENERA, LIVESTOCK_SPECIES, PLANT_GENERA, PLANT_SPECIES } from
       <div v-if="property === 'Livestock'" class="property-input-container two-textbox">
         <p>{{ property }}:</p>
         <div v-for="(updatedInhabitant, i) in updatedInhabitants" :key="`livestock-${i}`">
-          <select v-model="updatedInhabitant.genus">
-            <option></option>
+          <select v-model="updatedInhabitant.genus" @change="setSpeciesBlank(i)">
+            <option :value="``"></option>
             <option v-for="(g, j) in LIVESTOCK_GENERA" :value="g" :key="`livestock-genus-option-${j}`">{{ g }}</option>
           </select>
           <select v-model="updatedInhabitant.species">
-            <option></option>
+            <option :value="``"></option>
             <option v-for="(s, j) in LIVESTOCK_SPECIES.get(updatedInhabitant.genus)" :value="s" :key="`livestock-species-option-${j}`">{{ s }}</option>
           </select>
           <X
@@ -40,12 +40,12 @@ import { LIVESTOCK_GENERA, LIVESTOCK_SPECIES, PLANT_GENERA, PLANT_SPECIES } from
       <div v-if="property === 'Plants'" class="property-input-container two-textbox">
         <p>{{ property }}:</p>
         <div v-for="(updatedInhabitant, i) in updatedInhabitants" :key="`plant-${i}`">
-          <select v-model="updatedInhabitant.genus">
-            <option></option>
+          <select v-model="updatedInhabitant.genus" @change="setSpeciesBlank(i)">
+            <option :value="``"></option>
             <option v-for="(g, i) in PLANT_GENERA" :value="g" :key="`plant-genus-option${i}`">{{ g }}</option>
           </select>
           <select v-model="updatedInhabitant.species">
-            <option></option>
+            <option :value="``"></option>
             <option v-for="(s, i) in PLANT_SPECIES.get(updatedInhabitant.genus)" :value="s" :key="`plant-species-option-${i}`">{{ s }}</option>
           </select>
           <X
@@ -87,6 +87,9 @@ export default {
   methods: {
     toggleEdit() {
       this.editActive = !this.editActive;
+    },
+    setSpeciesBlank(i) {
+      this.updatedInhabitants[i].species = '';
     },
     update() {
       this.$emit(this.event, { index: this.index, inhabitants: this.updatedInhabitants });

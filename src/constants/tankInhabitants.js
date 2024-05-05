@@ -39,10 +39,10 @@ export async function populateInhabitantGenusSpeciesMap() {
     PLANT_SPECIES.set(genus, speciesList);
   }
 
-  LIVESTOCK_GENERA = await getAllGenera(`plants`);
+  LIVESTOCK_GENERA = await getAllGenera(`livestock`);
 
   for (const genus of LIVESTOCK_GENERA) {
-    const speciesList = await getAllInhabitantSpecies(`plants`, genus);
+    const speciesList = await getAllInhabitantSpecies(`livestock`, genus);
     LIVESTOCK_SPECIES.set(genus, speciesList);
   }
 }
