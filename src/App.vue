@@ -7,6 +7,7 @@ import Delete from './components/buttons/Delete.vue'
 import { sortTankArray } from './functions/sortData'
 import { checkObjectImagesEqual } from './functions/checkObjectEquality'
 import { populateInhabitantGenusSpeciesMap } from './constants/tankInhabitants'
+import { populateProductsMap } from './constants/products'
 </script>
 
 <template>
@@ -37,7 +38,6 @@ import { populateInhabitantGenusSpeciesMap } from './constants/tankInhabitants'
         </div>
         <TankListContainer
           :tanks="tanks"
-          :products="products"
           @onSelect="toggleSelectItem"
           @onUpdate="updateTank"
           @onUpdateVolume="updateVolume"
@@ -213,43 +213,18 @@ export default {
         console.error(e);
       }
     },
-    async getAllProducts() {
-      try {
-        const response_all = await fetch('http://localhost:3000/products/');
-        const allProducts = await response_all.json();
-
-        const response_waterFert = await fetch('http://localhost:3000/products/type/water column fertilizer');
-        const waterFertProducts = await response_waterFert.json();
-
-        const response_substrateFert = await fetch('http://localhost:3000/products/type/substrate fertilizer');
-        const substrateFertProducts = await response_substrateFert.json();
-
-        this.products.allProducts = allProducts;
-        this.products.waterFertProducts = waterFertProducts;
-        this.products.substrateFertProducts = substrateFertProducts;
-      } catch (e) {
-        console.error(e);
-      }
-    },
   },
   data() {
     return {
       modalActive: false,
       itemSelected: false,
-      tanks: [],
-      products: {
-        allProducts: [],
-        waterFertProducts: [],
-        substrateFertProducts: []
-      }
+      tanks: []
     };
   },
   async created() {
     await populateInhabitantGenusSpeciesMap();
+    await populateProductsMap();
     await this.getAllTanks();
-    await this.getAllProducts();
-    console.log(this.tanks);
-    console.log(this.products);
 
     for (const tank of this.tanks) {
       const parameters = tank.parameters.map(p => ({ ...p, tested: false }));

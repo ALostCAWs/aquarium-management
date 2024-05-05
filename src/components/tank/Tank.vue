@@ -15,7 +15,6 @@ import TankDetails from './TankDetails.vue';
         :key="`${tank.id}-details`"
         :index="index"
         :tank="tank"
-        :products="products"
         v-on="$listeners"
       />
     </div>
@@ -39,8 +38,7 @@ export default {
   },
   props: {
     index: { required: true },
-    tank: { required: true },
-    products: { required: true }
+    tank: { required: true }
   },
   methods: {
     createTank() {

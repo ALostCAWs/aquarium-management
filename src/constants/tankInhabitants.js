@@ -1,9 +1,9 @@
 import { sortGeneraArray } from '../functions/sortData'
 
-export let livestockGenera = [];
-export const livestockSpecies = new Map();
-export let plantGenera = [];
-export const plantSpecies = new Map();
+export let LIVESTOCK_GENERA = [];
+export const LIVESTOCK_SPECIES = new Map();
+export let PLANT_GENERA = [];
+export const PLANT_SPECIES = new Map();
 
 async function getAllGenera(inhabitantType) {
   try {
@@ -32,19 +32,19 @@ async function getAllInhabitantSpecies(inhabitantType, genus) {
 }
 
 export async function populateInhabitantGenusSpeciesMap() {
-  plantGenera = await getAllGenera(`plants`);
+  PLANT_GENERA = await getAllGenera(`plants`);
 
-  for (const genus of plantGenera) {
+  for (const genus of PLANT_GENERA) {
     const speciesList = await getAllInhabitantSpecies(`plants`, genus);
-    plantSpecies.set(genus, speciesList);
+    PLANT_SPECIES.set(genus, speciesList);
   }
 
-  livestockGenera = await getAllGenera(`plants`);
+  LIVESTOCK_GENERA = await getAllGenera(`plants`);
 
-  for (const genus of livestockGenera) {
+  for (const genus of LIVESTOCK_GENERA) {
     const speciesList = await getAllInhabitantSpecies(`plants`, genus);
-    livestockSpecies.set(genus, speciesList);
+    LIVESTOCK_SPECIES.set(genus, speciesList);
   }
 }
 
-export default { livestockSpecies, plantSpecies, populateInhabitantGenusSpeciesMap };
+export default { livestockSpecies: LIVESTOCK_SPECIES, plantSpecies: PLANT_SPECIES, populateInhabitantGenusSpeciesMap };

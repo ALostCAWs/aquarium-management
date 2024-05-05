@@ -9,7 +9,6 @@ import Tank from './Tank.vue'
       :key="`tank-${i}`"
       :index="i"
       :tank="tank"
-      :products="products"
       v-on="$listeners"
     />
   </div>
@@ -22,8 +21,7 @@ export default {
     Tank
   },
   props: {
-    tanks: { required: true },
-    products: { required: true }
+    tanks: { required: true }
   },
   data() {
     return {

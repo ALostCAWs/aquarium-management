@@ -11,7 +11,7 @@ import { validateIntegerInput } from '../../../functions/validateInput';
     <div v-show="!editActive">
       <div>
         <p>Test Schedule:</p>
-        <div v-for="(p) in parameters" :key="`test-${i}`">
+        <div v-for="(p, i) in parameters" :key="`test-${i}`">
           <p>{{ p.parameter }}</p>
           <p>Every {{ p.frequency }} days</p>
         </div>

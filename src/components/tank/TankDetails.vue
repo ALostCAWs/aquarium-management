@@ -11,6 +11,7 @@ import WaterChange from './properties/WaterChange.vue';
 import Product from './properties/Product.vue';
 import TankInhabitants from './properties/TankInhabitants.vue'
 import Ailments from './properties/Ailments.vue'
+import { PRODUCTS } from '../../constants/products';
 </script>
 
 <template>
@@ -68,7 +69,7 @@ import Ailments from './properties/Ailments.vue'
       :property="'Recent Product'"
       :event="'onUpdateRecentProduct'"
       :product="tank.recent_product"
-      :products="products.allProducts"
+      :products="PRODUCTS.get(`all`)"
     />
     <Product
       v-on="$listeners"
@@ -76,7 +77,7 @@ import Ailments from './properties/Ailments.vue'
       :property="'Recent Water Fert.'"
       :event="'onUpdateRecentWaterFert'"
       :product="tank.recent_water_fertilizer"
-      :products="products.waterFertProducts"
+      :products="PRODUCTS.get(`waterFert`)"
     />
     <Product
       v-on="$listeners"
@@ -84,7 +85,7 @@ import Ailments from './properties/Ailments.vue'
       :property="'Recent Substrate Fert.'"
       :event="'onUpdateRecentSubstrateFert'"
       :product="tank.recent_substrate_fertilizer"
-      :products="products.substrateFertProducts"
+      :products="PRODUCTS.get(`substrateFert`)"
     />
     <TankInhabitants
       v-on="$listeners"
@@ -127,8 +128,7 @@ export default {
   },
   props: {
     index: { required: true },
-    tank: { required: true },
-    products: { required: true }
+    tank: { required: true }
   },
   data() {
     return {

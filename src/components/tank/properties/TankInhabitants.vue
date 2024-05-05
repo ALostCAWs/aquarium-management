@@ -3,7 +3,7 @@ import ToggleEditCancel from '../../buttons/ToggleEditCancel.vue';
 import Update from '../../buttons/Update.vue';
 import Add from '../../buttons/Add.vue';
 import X from '../../buttons/X.vue';
-import { livestockGenera, livestockSpecies, plantGenera, plantSpecies } from '../../../constants/tankInhabitants';
+import { LIVESTOCK_GENERA, LIVESTOCK_SPECIES, PLANT_GENERA, PLANT_SPECIES } from '../../../constants/tankInhabitants';
 </script>
 
 <template>
@@ -26,11 +26,11 @@ import { livestockGenera, livestockSpecies, plantGenera, plantSpecies } from '..
         <div v-for="(updatedInhabitant, i) in updatedInhabitants" :key="`livestock-${i}`">
           <select v-model="updatedInhabitant.genus">
             <option></option>
-            <option v-for="(g, j) in livestockGenera" :value="g" :key="`livestock-genus-option-${j}`">{{ g }}</option>
+            <option v-for="(g, j) in LIVESTOCK_GENERA" :value="g" :key="`livestock-genus-option-${j}`">{{ g }}</option>
           </select>
           <select v-model="updatedInhabitant.species">
             <option></option>
-            <option v-for="(s, j) in livestockSpecies.get(updatedInhabitant.genus)" :value="s" :key="`livestock-species-option-${j}`">{{ s }}</option>
+            <option v-for="(s, j) in LIVESTOCK_SPECIES.get(updatedInhabitant.genus)" :value="s" :key="`livestock-species-option-${j}`">{{ s }}</option>
           </select>
           <X
             @onRemove="remove(i)"
@@ -42,11 +42,11 @@ import { livestockGenera, livestockSpecies, plantGenera, plantSpecies } from '..
         <div v-for="(updatedInhabitant, i) in updatedInhabitants" :key="`plant-${i}`">
           <select v-model="updatedInhabitant.genus">
             <option></option>
-            <option v-for="(g, i) in plantGenera" :value="g" :key="`plant-genus-option${i}`">{{ g }}</option>
+            <option v-for="(g, i) in PLANT_GENERA" :value="g" :key="`plant-genus-option${i}`">{{ g }}</option>
           </select>
           <select v-model="updatedInhabitant.species">
             <option></option>
-            <option v-for="(s, i) in plantSpecies.get(updatedInhabitant.genus)" :value="s" :key="`plant-species-option-${i}`">{{ s }}</option>
+            <option v-for="(s, i) in PLANT_SPECIES.get(updatedInhabitant.genus)" :value="s" :key="`plant-species-option-${i}`">{{ s }}</option>
           </select>
           <X
             @onRemove="remove(i)"
